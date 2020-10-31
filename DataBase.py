@@ -68,7 +68,10 @@ class DataBase:
             # now add back the date and the currency as its own individual column
             fs_df["Date"] = rpt["fiscalDateEnding"]
             fs_df["Currency"] = rpt["reportedCurrency"]
-
+            
+            # column type conversions
+            fs_df["Amount"] = fs_df["Amount"].astype(float)
+            fs_df["Date"] = pd.to_datetime(fs_df["Date"])
             # finally, append to results list
             co_results.append(fs_df)
         
@@ -78,4 +81,4 @@ class DataBase:
         elif statement == "INCOME_STATEMENT":
             self.is_company_results[symbol] = co_results
         elif statement == "CASH_FLOW":
-            self.cf_company_results = co_results
+            self.cf_company_results[symbol] = co_results
