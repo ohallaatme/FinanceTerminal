@@ -126,6 +126,39 @@ class DataBase:
 
         return gp_company_results
 
+    # calc SGA as % of Gross Profit
+    def calc_sga_perc(self, symbol):
+        
+        # store final results
+        sga_co_results = {}
+
+        # grab company's past 5 years of income statements
+        co_is = self.is_company_results[symbol]
+
+        # store results from loop
+        results = {}
+
+        for inc_stmt in co_is:
+                    
+            # get GP $
+            gp_line = inc_stmt[inc_stmt.Account == "grossProfit"]
+            gp = gp_line.iloc[0]["Amount"]
+            
+            # sga $
+            sga_line = inc_stmt[inc_stmt.Account == "sellingGeneralAdministrative"]
+            sga = sga_line = sga_line.iloc[0]["Amount"]
+            
+            # get yr, the same for all rows so doesn't matter
+            # what line we grab it from
+            date_val = gp_line.iloc[0]['Date']
+            yr = date_val.year
+            
+            # calc sga %
+            sga_perc = sga/gp
+            results[yr] = sga_perc
+        
+        sga_co_results[symbol] = results
+        return sga_co_results
 
 
 

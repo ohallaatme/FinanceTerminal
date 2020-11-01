@@ -20,3 +20,8 @@ msft_gp = fin_db.calc_gm_perc("MSFT")
 print("-"*100)
 print("Microsoft Gross Profit: ")
 print(msft_gp)
+
+msft_sga = fin_db.calc_sga_perc("MSFT")
+print("-"*100)
+print("Microsoft SG&A")
+print(msft_sga)
