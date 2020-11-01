@@ -82,3 +82,66 @@ class DataBase:
             self.is_company_results[symbol] = co_results
         elif statement == "CASH_FLOW":
             self.cf_company_results[symbol] = co_results
+
+    # Calcs the GMs for the symbol provided for the past 5 years
+    # as long as the income statements have already been pulled for it
+    # returns a nested dictionary with the symbol as the key for
+    # each year with the GM %
+    def calc_gm_perc(self, symbol):
+        
+        # store results, not creating class field as KPI methods
+        # do not require a request to the server
+        gp_company_results = {}
+
+        # grab the companies past 5 yr income statements
+        co_is = self.is_company_results[symbol]
+        print("-"*100)
+        print("Income Statements to Calc GM on:")
+        
+        print(co_is)
+        # store results for loop
+        results = {}
+
+        for inc_stmt in co_is:
+
+            # get gross profit $
+            gp_line = inc_stmt[inc_stmt.Account == "grossProfit"]
+            gp = gp_line.iloc[0]["Amount"]
+
+            # get revenue $
+            rev_line = inc_stmt.loc[inc_stmt.Account == "totalRevenue"]
+            rev = rev_line.iloc[0]["Amount"]
+
+            # get yr, the same for all rows so doesn't matter
+            # what line we grab it from
+            date_val = gp_line.iloc[0]['Date']
+            yr = date_val.year
+
+
+            # calc gp %
+            gp_percent = gp/rev
+            results[yr] = gp_percent
+        
+        gp_company_results[symbol] = results
+
+        return gp_company_results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
