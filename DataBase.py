@@ -150,7 +150,7 @@ class DataBase:
             
             # get yr, the same for all rows so doesn't matter
             # what line we grab it from
-            date_val = gp_line.iloc[0]['Date']
+            date_val = gp_line.iloc[0]["Date"]
             yr = date_val.year
             
             # calc sga %
@@ -161,16 +161,93 @@ class DataBase:
         return sga_co_results
 
 
+    def calc_int_perc(self, symbol):
+
+        # store final results
+        int_co_results = {}
+
+        # grab company's past 5 years of income statements
+        co_is = self.is_company_results[symbol]
+
+        # store results from loop
+        results = {}
+
+        for inc_stmt in co_is:
+
+            # get GP $
+            op_line = inc_stmt[inc_stmt.Account == "operatingIncome"]
+            op_inc = op_line.iloc[0]["Amount"]
+
+            # get Interest Exp $
+            int_line = inc_stmt[inc_stmt.Account == "interestExpense"]
+            int_exp = int_line.iloc[0]["Amount"]
+
+            # get yr, the same for all rows
+            date_val = op_line.iloc[0]["Date"]
+            yr = date_val.year
+
+            # calc int_exp %
+            int_perc = int_exp/op_inc
+            results[yr] = int_perc
+
+        int_co_results[symbol] = results
+        return int_co_results
+
+    # method determines if tax expense reported is 35% of income vefore taxes, if it doesn't match, 
+    # where is the extra income coming from?
+    # calc for the 5 years
+    def tax_exp_test(self, symbol):
+        
+        # store final results
+        inc_tax_perc_co_results = {}
+
+        # store tax exp results
+        tax_exp_results = {}
+
+        # store inc before taxes
+        inc_before_tax_results = {}
+
+        # grab company's past 5 years of income statements
+        co_is = self.is_company_results[symbol]
+
+        # store results from loop
+        inc_results = {}
+        tax_results = {}
+        perc_results = {}
+
+        for inc_stmt in co_is:
+            
+            # get income before tax $
+            inc_before_tax_line = inc_stmt[inc_stmt.Account == "incomeBeforeTax"]
+            inc_before_tax = inc_before_tax_line.iloc[0]["Amount"]
+
+            # get tax $
+            tax_line = inc_stmt[inc_stmt.Account == "incomeTaxExpense"]
+            tax_exp = tax_line.iloc[0]["Amount"]
+
+            # get yr
+            date_val = tax_line.iloc[0]["Date"]
+            yr = date_val.year
+
+            # Try returning tax exp as a percent of income before tax for starter
+
+            inc_results[yr] = inc_before_tax
+            tax_results[yr] = tax_exp
 
 
+            inc_tax_perc = tax_exp/inc_before_tax
+            perc_results[yr] = inc_tax_perc
 
+        inc_before_tax_results[yr] = inc_results
+        tax_exp_results[symbol] = tax_results
 
+        inc_tax_perc_co_results[symbol] = perc_results
+        return inc_before_tax_results, tax_exp_results, inc_tax_perc_co_results
 
-
-
-
-
-
+    # compare income statement ratios of 5 companies
+    # will eventually have to make more dynamic
+    def compare_companies(self, symbol_1, symbol_2, symbol_3, symbol_4, symbol_5):
+        
 
 
 
