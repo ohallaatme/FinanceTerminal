@@ -244,14 +244,119 @@ class DataBase:
         inc_tax_perc_co_results[symbol] = perc_results
         return inc_before_tax_results, tax_exp_results, inc_tax_perc_co_results
 
+    # only returns the inc tax % paid
+    def tax_exp_perc(self, symbol):
+        
+        # store final results
+        inc_tax_perc_co_results = {}    
+
+        # grab company's past 5 years of income statements
+        co_is = self.is_company_results[symbol]
+
+        # store results from loop
+        perc_results = {}
+
+        for inc_stmt in co_is:
+            
+            # get income before tax $
+            inc_before_tax_line = inc_stmt[inc_stmt.Account == "incomeBeforeTax"]
+            inc_before_tax = inc_before_tax_line.iloc[0]["Amount"]
+
+            # get tax $
+            tax_line = inc_stmt[inc_stmt.Account == "incomeTaxExpense"]
+            tax_exp = tax_line.iloc[0]["Amount"]
+
+            # get yr
+            date_val = tax_line.iloc[0]["Date"]
+            yr = date_val.year
+
+            # Try returning tax exp as a percent of income before tax for starter
+
+            inc_tax_perc = tax_exp/inc_before_tax
+            perc_results[yr] = inc_tax_perc
+
+        inc_tax_perc_co_results[symbol] = perc_results
+        return inc_tax_perc_co_results
+
     # compare income statement ratios of 5 companies
     # will eventually have to make more dynamic
     def compare_companies(self, symbol_1, symbol_2, symbol_3, symbol_4, symbol_5):
         
+        is_results = {}
+
+        companies = [symbol_1, symbol_2, symbol_3, symbol_4, symbol_5]
+
+        ## Gross Margin % Calculation
+        gp_results = [self.calc_gm_perc(company) for company in companies]
+
+        ## SGA Percent
+        sga_results = [self.calc_sga_perc(company) for company in companies]
+
+        ## Interest Percent
+        int_results = [self.calc_int_perc(company) for company in companies]
+
+        ## Tax Expense
+        tax_perc_results = [self.tax_exp_perc(company) for company in companies]
+
+        """ --- Convert Results into one consolidated DF """
+
+        # append df of results for final concat to produce final output frame
+        is_results = []
+
+        ## GP
+        gp_dfs = []
+
+        for co in gp_results:
+            df = pd.DataFrame.from_dict(co, orient="index")
+            df["KPI"] = "Gross Profit %"
+            df["Company"] = df.index
+            gp_dfs.append(df)
+
+        gp_frame = pd.concat(gp_dfs).reset_index(drop=True)
+
+        is_results.append(gp_frame)
+
+        ## SGA
+        sga_dfs = []
 
 
+        for co in sga_results:
+            df = pd.DataFrame.from_dict(co, orient="index")
+            df["KPI"] = "SGA as % of Gross Profit"
+            df["Company"] = df.index
+            sga_dfs.append(df)
 
+        sga_frame = pd.concat(sga_dfs).reset_index(drop=True)
 
+        is_results.append(sga_frame)
 
+        ## Int Exp
+        int_dfs = []
 
+        for co in int_results:
+            df = pd.DataFrame.from_dict(co, orient="index")
+            df["KPI"] = "Interest Expense as % of OpInc"
+            df["Company"] = df.index
+            int_dfs.append(df)
 
+        int_frame = pd.concat(int_dfs).reset_index(drop=True)
+
+        is_results.append(int_frame)
+
+        ## Tax Rate
+        tax_dfs = []
+
+        for co in tax_perc_results:
+            df = pd.DataFrame.from_dict(co, orient="index")
+            df["KPI"] = "Tax Rate"
+            df["Company"] = df.index
+            tax_dfs.append(df)
+
+        tax_frame = pd.concat(tax_dfs).reset_index(drop=True)
+
+        is_results.append(tax_frame)
+
+        is_frame = pd.concat(is_results).reset_index(drop=True)
+        
+        # TODO - PICKUP TESTING compare_companies 11.4.2020
+        return is_frame
