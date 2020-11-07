@@ -18,6 +18,10 @@ from kivy.uix.dropdown import DropDown
 from kivy.factory import Factory
 from kivy import utils
 
+# my mods
+from DataBase import DataBase
+from MobileScreens.Popup import notif_window
+
 """ -- Define Main Screens -- """
 # Menu
 class MenuScreen(Screen):
@@ -33,11 +37,15 @@ class MenuScreen(Screen):
         sm.current = "TimeSeriesAnalysis"
 
     def hit_edu_info(self):
+        # test
+        hello_window = notif_window("Hello World!", "First Program")
+        hello_window.open()
+
         sm.current = "EduInfo"
 
 class FinStmtAnalysis(Screen):
     def hit_select_cos(self):
-        pass
+        sm.current = "CompanySelection"
     
     def hit_is_scorecard(self):
         pass
@@ -107,6 +115,49 @@ class EduInfo(Screen):
     def hit_return_menu(self):
         sm.current = "MenuScreen"
 
+""" --- Financial Statement Anaysis SubScreens --- """
+class CompanySelection(Screen):
+    co_1 = ObjectProperty(None)
+    co_2 = ObjectProperty(None)
+    co_3 = ObjectProperty(None)
+    co_4 = ObjectProperty(None)
+    co_5 = ObjectProperty(None)
+    co_6 = ObjectProperty(None)
+    co_7 = ObjectProperty(None)
+    co_8 = ObjectProperty(None)
+    co_9 = ObjectProperty(None)
+    co_10 = ObjectProperty(None)
+
+    def hit_back(self):
+        sm.current = "FinStmtAnalysis"
+
+    def hit_save_symbols(self):
+        # determine whether or not to have an info
+        # screen on the companies selected, for now go back to menu
+        # and issue pop up
+        sm.current = "FinStmtAnalysis"
+
+        fin_db.co_1 = self.co_1.text.strip()
+        fin_db.co_2 = self.co_2.text.strip()
+        fin_db.co_3 = self.co_3.text.strip()
+        fin_db.co_4 = self.co_4.text.strip()
+        fin_db.co_5 = self.co_5.text.strip()
+        fin_db.co_6 = self.co_6.text.strip()
+        fin_db.co_7 = self.co_7.text.strip()
+        fin_db.co_8 = self.co_8.text.strip()
+        fin_db.co_9 = self.co_9.text.strip()
+        fin_db.co_10 = self.co_10.text.strip()
+
+        fin_db.set_symbols()
+
+        # convert companies selected to a string to include in the popup window
+        # to confirm companies the user selected
+        popup_co_txt = ' '.join([str(elem) + " " for elem in fin_db.symbols])
+
+        cos_set = notif_window("The following companies have been selected " + 
+                                popup_co_txt, "Company Selection Complete")
+                            
+        cos_set.open()
 
 # set up ScreenManager
 class WindowManager(ScreenManager):
@@ -122,7 +173,7 @@ kv = Builder.load_file("FinanceAppUI.kv")
 # list of screens
 screens = [MenuScreen(name="MenuScreen"), FinStmtAnalysis(name="FinStmtAnalysis"),
             CoOverview(name="CoOverview"), TimeSeriesAnalysis(name="TimeSeriesAnalysis"),
-            EduInfo(name="EduInfo")]
+            EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection")]
 
 # add screens to screen manager
 for screen in screens:
@@ -130,6 +181,11 @@ for screen in screens:
 
 # set up menu screen as the current screen on launch
 sm.current = "MenuScreen"
+
+# instantiate instance of the DataBase class
+# TODO - Address API Key input before publishing,
+# for now make people get their own key
+fin_db = DataBase()
 
 # TODO: PICKUP - BUILD OUT UI FILE
 # build the data app

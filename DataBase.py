@@ -13,6 +13,45 @@ class DataBase:
         self.bs_company_results = {}
         self.cf_company_results = {}
 
+
+        """ fields for companies selected to analyze """
+        # incl 10 for now
+        self.co_1 = None
+        self.co_2 = None
+        self.co_3 = None
+        self.co_4 = None
+        self.co_5 = None
+        self.co_6 = None
+        self.co_7 = None
+        self.co_8 = None
+        self.co_9 = None
+        self.co_10 = None
+
+        # list to store company symbols
+        self.symbols = []
+    
+    # method (setter) to set list of company symbols to analyze
+    def set_symbols(self):
+        # create list that is not set as field to loop through logic
+        # and only append co fields with values to the company symbol list (self.symbols)
+        test_list = []
+        test_list.append(self.co_1)
+        test_list.append(self.co_2)
+        test_list.append(self.co_3)
+        test_list.append(self.co_4)
+        test_list.append(self.co_5)
+        test_list.append(self.co_6)
+        test_list.append(self.co_7)
+        test_list.append(self.co_8)
+        test_list.append(self.co_9)
+        test_list.append(self.co_10)
+        
+        for co in test_list: 
+            if co == None or co == "":
+                continue
+            else:
+                self.symbols.append(co)
+
     # TODO: find appropriate way to document Python code
     def get_yrly_financials(self, symbol, statement):
         # store results for a particular company, will be added to the 
