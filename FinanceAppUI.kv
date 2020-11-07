@@ -1,0 +1,292 @@
+#:import rgba kivy.utils.get_color_from_hex
+#:import utils kivy.utils
+
+<MenuScreen>:
+
+    name: "MenuScreen"
+
+    GridLayout:
+        cols: 1
+        Label:
+            # Need to think of name, play on Bloomberg terminal/freedom of info?
+            # play on occupy wall street?
+            text: "Snowden Terminal"
+            font_size: 30
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            canvas.before:
+                Color:  
+                    # dark indigo
+                    rgba: utils.get_color_from_hex("#23273c")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        
+        GridLayout:
+            cols: 2
+            GridLayout:
+                cols: 1
+                padding: [10, 10, 5, 5]
+                Button:
+                    text: "Financial Statement Analysis"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    # light turquoise
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_fin_stmt_analysis()
+
+
+            GridLayout:
+                cols: 1
+                padding: [5, 10, 10, 5]
+                Button:
+                    text: "Company Overview & Annual Report Text Analysis"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_sub_menu_two()
+
+            GridLayout:
+                cols: 1
+                padding: [10, 5, 5, 10]
+                Button:
+                    text: "Time Series Analysis"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_ts_analysis()
+
+            GridLayout:
+                cols: 1
+                padding: [5, 5, 10, 10]
+                Button:
+                    text: "Educational Info"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_edu_info()
+            
+<FinStmtAnalysis>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Income Statement Scorecard"
+            font_size: 30
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            canvas.before:
+                Color:  
+                    # dark indigo
+                    rgba: utils.get_color_from_hex("#23273c")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        GridLayout:
+            cols: 2
+            GridLayout:
+                cols: 1
+                padding: [10, 10, 5, 5]
+                Button:
+                    text: "Select Companies"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_select_cos()
+            
+            GridLayout:
+                cols: 1
+                padding: [5, 10, 10, 5]
+                Button:
+                    text: "Income Statement Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_is_scorecard()
+                
+            GridLayout:
+                cols: 1
+                padding: [10, 5, 5, 5]
+                Button:
+                    text: "Balance Sheet Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_bs_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [5, 5, 10, 5]
+                Button:
+                    text: "Cash Flows Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_cf_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [10, 5, 5, 10]
+                Button:
+                    text: "Sector Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_sector_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [5, 5, 10, 10]
+                Button:
+                    text: "Return to Menu"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    # pinkish red
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_return_menu()
+
+<CoOverview>:
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Company Overview"
+            font_size: 30
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            canvas.before:
+                Color:  
+                    # dark indigo
+                    rgba: utils.get_color_from_hex("#23273c")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        GridLayout:
+            cols: 2
+            GridLayout:
+                cols: 1
+                padding: [10, 10, 5, 5]
+                Button:
+                    text: "Select Companies"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_select_cos()
+            
+            GridLayout:
+                cols: 1
+                padding: [5, 10, 10, 5]
+                Button:
+                    text: "Income Statement Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_is_scorecard()
+                
+            GridLayout:
+                cols: 1
+                padding: [10, 5, 5, 5]
+                Button:
+                    text: "Balance Sheet Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_bs_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [5, 5, 10, 5]
+                Button:
+                    text: "Cash Flows Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_cf_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [10, 5, 5, 10]
+                Button:
+                    text: "Sector Scorecard"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("#33cccc")
+                    on_release: root.hit_sector_scorecard()
+
+            GridLayout:
+                cols: 1
+                padding: [5, 5, 10, 10]
+                Button:
+                    text: "Return to Menu"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    # pinkish red
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_return_menu()
