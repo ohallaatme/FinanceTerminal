@@ -313,11 +313,11 @@
 
         GridLayout:
             cols: 1
-
             Label:
-                text: "Enter Stock Symbol (Ticker) for Companies to Analyze"
-                font_size: 20
+                text: "Company Selection"
+                font_size: 30
                 text_size: self.size
+                font: "Arial"
                 halign: "center"
                 valign: "middle"
                 canvas.before:
@@ -359,7 +359,6 @@
 
         GridLayout: 
             cols: 1
-            
             BoxLayout:
                 orientation: "vertical"
                 Label:
@@ -369,7 +368,6 @@
                     valign: "middle"
                     # TODO: Create Button to Search Tickers
                     text: "Enter the Tickers of Companies to Analyze (e.g. for Apple Inc enter AAPL)"
-                    color: 0, 0, 0, 1
                     canvas.before:
                         Color:
                             rgba: utils.get_color_from_hex("#23273c")
@@ -383,17 +381,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 2, 1, 1]
-                        text: "Company 1: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 1: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -406,17 +406,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 2: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 2: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -428,17 +430,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 3: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 3: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -450,17 +454,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 4: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 4: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -468,21 +474,22 @@
                         TextInput:
                             id: co_4
                             multiline: False
-
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 5: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 5: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -494,17 +501,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 6: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 6: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -516,17 +525,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 7: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 7: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -538,17 +549,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 8: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 8: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -560,17 +573,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
-                        text: "Company 9: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 9: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
@@ -582,17 +597,19 @@
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 2]
-                        text: "Company 10: "
-                        text_size: self.size
-                        padding_x: 5
-                        halign: "left"
-                        valign: "middle"
-                        canvas.before:
-                            Color:
-                                rgba: utils.get_color_from_hex("#33cccc")
-                            Rectangle:
-                                pos: self.pos
-                                size: self.size
+                        Label:
+                            text: "Company 10: "
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#33cccc")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
                     GridLayout:
                         cols: 1
