@@ -131,7 +131,9 @@ class DataBase:
         # store results, not creating class field as KPI methods
         # do not require a request to the server
         gp_company_results = {}
-
+        print("-"*100)
+        print(str(symbol) + " Results")
+        print(gp_company_results.keys())
         # grab the companies past 5 yr income statements
         co_is = self.is_company_results[symbol]
         print("-"*100)
@@ -397,5 +399,8 @@ class DataBase:
 
         is_frame = pd.concat(is_results).reset_index(drop=True)
         
+        print(is_frame.columns)
+        # resetting index fixes ordering issue
+        is_frame.set_index(["Company", "KPI"], inplace=True)
         # TODO - PICKUP TESTING compare_companies 11.4.2020
         return is_frame
