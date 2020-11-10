@@ -23,6 +23,11 @@ from kivy.uix.recycleview import RecycleView
 from DataBase import DataBase
 from MobileScreens.Popup import notif_window
 
+# df gui from kivy (pulled mainy from git)
+from dfguik import DfguiWidget
+# for testing, remove eventually
+from demo import create_dummy_data
+
 """ -- Define Main Screens -- """
 # Menu
 class MenuScreen(Screen):
@@ -51,7 +56,7 @@ class FinStmtAnalysis(Screen):
     def hit_is_scorecard(self):
         # test on how to view tabular data
         # TODO: Modify to make it show the company data returned from DataBase methods
-        pass
+        sm.current = "IsScorecard"
 
     def hit_bs_scorecard(self):
         pass
@@ -162,6 +167,15 @@ class CompanySelection(Screen):
                             
         cos_set.open()
 
+""" --- Scorecard Screens ---"""
+class IsScorecard(Screen):
+    # call parent constructor so we can add dfguik widget to screen and move via ScreenManager
+    def __init__(self, **kwargs):
+        super(IsScorecard, self).__init__(**kwargs)
+        # TODO: Replace with Income Statement info
+        self.df = create_dummy_data(1000)
+        self.add_widget(DfguiWidget(self.df))
+
 # set up ScreenManager
 class WindowManager(ScreenManager):
     pass
@@ -176,7 +190,8 @@ kv = Builder.load_file("FinanceAppUI.kv")
 # list of screens
 screens = [MenuScreen(name="MenuScreen"), FinStmtAnalysis(name="FinStmtAnalysis"),
             CoOverview(name="CoOverview"), TimeSeriesAnalysis(name="TimeSeriesAnalysis"),
-            EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection")]
+            EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection"), 
+            IsScorecard(name="IsScorecard")]
 
 
 # add screens to screen manager
