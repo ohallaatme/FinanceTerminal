@@ -17,6 +17,7 @@ from kivy.uix.checkbox import CheckBox
 from kivy.uix.dropdown import DropDown
 from kivy.factory import Factory
 from kivy import utils
+from kivy.uix.recycleview import RecycleView
 
 # my mods
 from DataBase import DataBase
@@ -48,6 +49,8 @@ class FinStmtAnalysis(Screen):
         sm.current = "CompanySelection"
     
     def hit_is_scorecard(self):
+        # test on how to view tabular data
+        # TODO: Modify to make it show the company data returned from DataBase methods
         pass
 
     def hit_bs_scorecard(self):
@@ -174,6 +177,7 @@ kv = Builder.load_file("FinanceAppUI.kv")
 screens = [MenuScreen(name="MenuScreen"), FinStmtAnalysis(name="FinStmtAnalysis"),
             CoOverview(name="CoOverview"), TimeSeriesAnalysis(name="TimeSeriesAnalysis"),
             EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection")]
+
 
 # add screens to screen manager
 for screen in screens:
