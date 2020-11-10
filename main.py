@@ -50,13 +50,32 @@ class MenuScreen(Screen):
         sm.current = "EduInfo"
 
 class FinStmtAnalysis(Screen):
+    def __init__(self, *args, **kwargs):
+        super(FinStmtAnalysis, self).__init__(*args, **kwargs)
+        # have to re render scorecard screens each time for dynamic view of data
+        self.is_scorecard_run = False
+        self.bs_scorecard_run = False
+        self.cf_scorecard_run = False
+
     def hit_select_cos(self):
         sm.current = "CompanySelection"
     
     def hit_is_scorecard(self):
         # test on how to view tabular data
         # TODO: Modify to make it show the company data returned from DataBase methods
+                # pull rolling income statements for selected companies
+        for co in fin_db.symbols:
+            fin_db.get_yrly_financials(co, "INCOME_STATEMENT")
+
+        # delete old scorecard if already run
+        if self.is_scorecard_run:
+            to_delete = sm.get_screen("IsScorecard")
+            sm.clear_widgets([to_delete])
+
+        sm.add_widget(IsScorecard(name="IsScorecard"))
         sm.current = "IsScorecard"
+
+        self.is_scorecard_run = True
 
     def hit_bs_scorecard(self):
         pass
@@ -173,7 +192,8 @@ class IsScorecard(Screen):
     def __init__(self, **kwargs):
         super(IsScorecard, self).__init__(**kwargs)
         # TODO: Replace with Income Statement info
-        self.df = create_dummy_data(1000)
+        self.df = fin_db.compare_companies(fin_db.co_1, fin_db.co_2, fin_db.co_3,
+                                            fin_db.co_4, fin_db.co_5)
         self.add_widget(DfguiWidget(self.df))
 
 # set up ScreenManager
@@ -190,8 +210,7 @@ kv = Builder.load_file("FinanceAppUI.kv")
 # list of screens
 screens = [MenuScreen(name="MenuScreen"), FinStmtAnalysis(name="FinStmtAnalysis"),
             CoOverview(name="CoOverview"), TimeSeriesAnalysis(name="TimeSeriesAnalysis"),
-            EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection"), 
-            IsScorecard(name="IsScorecard")]
+            EduInfo(name="EduInfo"), CompanySelection(name="CompanySelection")]
 
 
 # add screens to screen manager

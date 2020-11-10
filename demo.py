@@ -41,7 +41,7 @@ def create_dummy_data(size):
 class DataScreen(Screen):
     def __init__(self, **kwargs):
         super(DataScreen, self).__init__(**kwargs)
-        self.df = create_dummy_data(1000)
+        self.df = pd.read_excel(r"/Users/katherineohalloran/Documents/FinanceKivyApp/TestData/test-scorecard.xlsx")
         self.add_widget(DfguiWidget(self.df))
 
 class WindowManager(ScreenManager):

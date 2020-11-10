@@ -402,5 +402,8 @@ class DataBase:
         print(is_frame.columns)
         # resetting index fixes ordering issue
         is_frame.set_index(["Company", "KPI"], inplace=True)
+
+        new_col_names = ["Year End " + str(col) for col in is_frame.columns]
+        is_frame.columns = new_col_names
         # TODO - PICKUP TESTING compare_companies 11.4.2020
         return is_frame
