@@ -1,6 +1,5 @@
 # imports and settings
 from DataBase import DataBase
-import pandas as pd
 
 # driver code
 
@@ -11,13 +10,39 @@ import pandas as pd
 fin_db = DataBase()
 
 fin_db.get_yrly_financials("MSFT", "INCOME_STATEMENT")
-fin_db.get_yrly_financials("AAPL", "INCOME_STATEMENT")
-fin_db.get_yrly_financials("GOOG", "INCOME_STATEMENT")
-fin_db.get_yrly_financials("UBER", "INCOME_STATEMENT")
-fin_db.get_yrly_financials("FB", "INCOME_STATEMENT")
 
-is_scorecard = fin_db.compare_companies("MSFT", "AAPL", "GOOG", "UBER", "FB")
-is_scorecard.to_excel(r"/Users/katherineohalloran/Documents/FinanceKivyApp/TestData/test-scorecard.xlsx")
 print("-"*100)
-print("Income Statement Scorecard Results: ")
-print(is_scorecard)
+print("Income Statement Results: ")
+print(fin_db.is_company_results)
+
+msft_gp = fin_db.calc_gm_perc("MSFT")
+
+print("-"*100)
+print("Microsoft Gross Profit: ")
+print(msft_gp)
+
+msft_sga = fin_db.calc_sga_perc("MSFT")
+print("-"*100)
+print("Microsoft SG&A")
+print(msft_sga)
+
+
+msft_int_exp = fin_db.calc_int_perc("MSFT")
+print("-"*100)
+print("Microsoft Interest Expense as a % of Operating Income")
+print(msft_int_exp)
+
+msft_inc_before_tax, msft_tax_exp, msft_tax_perc = fin_db.tax_exp_test("MSFT")
+
+print("-"*100)
+print("Microsoft Income Before Taxes")
+print(msft_inc_before_tax)
+
+print("-"*100)
+print("Microsoft Tax Expense")
+print(msft_tax_exp)
+
+
+print("-"*100)
+print("Microsoft Percent Paid (Taxes)")
+print(msft_tax_perc)

@@ -1,3 +1,4 @@
+
 import kivy
 kivy.require('1.10.0')
 from kivy.lang import Builder
@@ -50,7 +51,6 @@ Builder.load_string("""
             pos: self.pos
             size: self.size
     on_release: root.parent.parent.parent.parent._generate_table(self.text)
-
 <TableHeader>:
     header: header
     bar_width: 0
@@ -64,7 +64,6 @@ Builder.load_string("""
         size_hint: (None, None)
         width: self.minimum_width
         height: self.minimum_height
-
 <ScrollCell>:
     canvas.before:
         Color:
@@ -80,7 +79,6 @@ Builder.load_string("""
     size_hint: 1, 1
     height: 60
     width: 400
-
 <TableData>:
     rgrid: rgrid
     scroll_type: ['bars', 'content']
@@ -97,17 +95,13 @@ Builder.load_string("""
         size_hint: (None, None)
         width: self.minimum_width
         height: self.minimum_height
-
-
 <DfguiWidget>:
     panel1: data_frame_panel
     panel2: col_select_panel
     panel3: fil_select_panel
     panel4: hist_graph_panel
     panel5: scat_graph_panel
-
     do_default_tab: False
-
     TabbedPanelItem:
         text: 'Data Frame'
         on_release: root.open_panel1()
@@ -129,10 +123,8 @@ Builder.load_string("""
         text: 'Scatter Plot'
         ScatterPlot:
             id: scat_graph_panel
-
 <DataframePanel>:
     orientation: 'vertical'
-
 <ColumnSelectionPanel>:
     col_list: col_list
     orientation: 'vertical'
@@ -149,7 +141,6 @@ Builder.load_string("""
             row_default_height: '55dp'
             row_force_default: True
             size_hint_y: None
-
 <FilterPanel>:
     filter_list: filter_list
     orientation: 'vertical'
@@ -166,7 +157,6 @@ Builder.load_string("""
             row_default_height: '55dp'
             row_force_default: True
             size_hint_y: None
-
 <HistogramPlot>:
     select_btn: select_btn
     histogram: histogram
@@ -182,10 +172,8 @@ Builder.load_string("""
             on_release: root.dropdown.open(self)
             size_hint_y: None
             height: '48dp'
-
 <Histogram>:
     orientation: 'vertical'
-
 <ScatterPlot>:
     select_btn1: select_btn1
     select_btn2: select_btn2
@@ -208,12 +196,8 @@ Builder.load_string("""
             on_release: root.dropdown2.open(self)
             size_hint_y: None
             height: '48dp'
-
-
 <ScatterGraph>:
     orientation: 'vertical'
-
-
 <ColDropDown>:
     #on_parent: self.dismiss()
     #on_select: btn.text = '{}'.format(args[1])
@@ -603,5 +587,3 @@ class DfguiWidget(TabbedPanel):
         self.panel1.apply_filter(self.panel3.get_filters())
         self.panel1._generate_table(disabled=
                                     self.panel2.get_disabled_columns())
-
-        
