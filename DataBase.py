@@ -400,10 +400,18 @@ class DataBase:
         is_frame = pd.concat(is_results).reset_index(drop=True)
         
         print(is_frame.columns)
-        # resetting index fixes ordering issue
+        # below fixes col ordering issue but keeps dynamic considering
+        # years are dynamic depending on company/time pulled
         is_frame.set_index(["Company", "KPI"], inplace=True)
 
         new_col_names = ["Year End " + str(col) for col in is_frame.columns]
         is_frame.columns = new_col_names
-        # TODO - PICKUP TESTING compare_companies 11.4.2020
-        return is_frame
+
+        is_frame["Company/KPI"] = is_frame.index
+        cols = [x for x in is_frame.columns]
+
+        new_cols = [ele for ele in reversed(cols)]
+
+        is_frame_final = is_frame[new_cols]
+
+        return is_frame_final
