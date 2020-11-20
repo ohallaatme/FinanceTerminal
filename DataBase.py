@@ -546,12 +546,30 @@ class DataBase:
         return is_frame_final
 
     """ -- Company Overview Methods -- """
+    def get_co_overview(self, symbol):
+        params = {"function": "OVERVIEW",
+                    "symbol": symbol,
+                    "apikey": self.api_key
+        }
+
+        co_resp = requests.get(self.API_URL, params)
+        co_json = co_resp.json()
+
+        # get attributes for summary page from response
+        sector = co_json["Sector"]
+        industry = co_json["Industry"]
+        market_cap = co_json["MarketCapitalization"]
+        ebitda = co_json["EBITDA"]
+        pe_ratio = co_json["PERatio"]
+
+        # TODO: PICKUP 11.20.2020 TEST METHOD, figure out how to render dynamic summary based on user input
+        return sector, industry, market_cap, ebitda, pe_ratio
 
     def get_eps(self, symbol):
         params = {"function":"EARNINGS",
                     "symbol": "MSFT", 
-                    "apikey":self.api_key
-                    }
+                    "apikey": self.api_key
+        }
 
         earnings_resp = requests.get(self.API_URL, params)
         earnings_json = earnings_resp.json()
