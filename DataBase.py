@@ -52,6 +52,44 @@ class DataBase:
             else:
                 self.symbols.append(co)
 
+    
+    # Returns dictionary with year and account balance 
+    # @acct: The account you want the values for
+    # @stmt: The financial statement, three string options: "BALANCE_SHEET", "INCOME_STATEMENT", "CASH_FLOWS"
+    # @symbol: the stock ticker for the company desired
+    def get_acct_balance(self, acct, stmt, symbol):
+        if stmt == "BALANCE_SHEET":
+            co_data = self.bs_company_results[symbol]
+        elif stmt == "INCOME_STATEMENT":
+            co_data = self.is_company_results[symbol]
+        elif stmt == "CASH_FLOWS":
+            co_data = self.cf_company_results[symbol]
+        else:
+            # TODO: throw pop up error or raise exception, for now break
+            print("Invalid Statement Argument")
+            return
+
+        # store results from loop 
+        results = {}
+        for stmt in co_data:
+            
+            # get amount from account passed 
+            val_line = stmt[stmt.Account == acct]
+            val = val_line.iloc[0]["Amount"]
+
+            # get year of financial statement
+            date_val = val_line.iloc[0]["Date"]
+            yr = date_val.year
+
+            # add to results dictionary
+            results[yr] = val
+
+        # TODO: PICKUP 11.16.2020 
+        # Refactor KPI Methods to leverage get_acct_balance to make code more DRY
+        return results
+
+        
+    
     # TODO: find appropriate way to document Python code
     def get_yrly_financials(self, symbol, statement):
         # store results for a particular company, will be added to the 
@@ -122,6 +160,7 @@ class DataBase:
         elif statement == "CASH_FLOW":
             self.cf_company_results[symbol] = co_results
 
+    """ Income Statement KPIs """
     # Calcs the GMs for the symbol provided for the past 5 years
     # as long as the income statements have already been pulled for it
     # returns a nested dictionary with the symbol as the key for
@@ -319,6 +358,91 @@ class DataBase:
         inc_tax_perc_co_results[symbol] = perc_results
         return inc_tax_perc_co_results
 
+    """ Balance Sheet KPIs """
+    # refactored method to use get_acct_balance method
+    def calc_net_rec_perc(self, symbol):
+
+        # store final results
+        net_rec_co_results = {}
+
+        # get revenue values
+        sales_vals = self.get_acct_balance("totalRevenue", "INCOME_STATEMENT", symbol)
+        net_rec_vals = self.get_acct_balance("netReceivables", "BALANCE_SHEET", symbol)
+
+        # get years, doesn't matter which dict we take it from
+        # both statements will have the same years
+        years = [year for year in sales_vals.keys()]
+
+        # results for year loop
+        results = {}
+
+        # calc perc by year
+        for year in years:
+            sales = sales_vals[year]
+            net_rec = net_rec_vals[year]
+
+            net_rec_perc = net_rec/sales
+            results[year] = net_rec_perc
+
+        # add to final results by ticker
+        net_rec_co_results[symbol] = results
+        return net_rec_co_results
+        
+    def calc_cash_to_debt(self, symbol):
+
+        # store final results
+        cash_to_debt_results = {}
+
+        ## get asset values
+        # cash
+        cash_vals = self.get_acct_balance("cash", "BALANCE_SHEET", symbol)
+        # short term investments
+        st_inv_values = self.get_acct_balance("shortTermInvestments", "BALANCE_SHEET", symbol)
+
+        ## get liability values
+        # short term debt
+        st_debt_vals = self.get_acct_balance("shortTermDebt", "BALANCE_SHEET", symbol)
+        # long term debt
+        lt_debt_vals = self.get_acct_balance("longTermDebt", "BALANCE_SHEET", symbol)
+
+        # get years
+        # will be the same for each dict so can use any
+        years = [year for year in cash_vals.keys()]
+
+        # results for year loop
+        results = {}
+
+        for year in years:
+            ## assets
+            cash = cash_vals[year]
+            st_inv = st_inv_values[year]
+            
+            # ensure data type reads correctly
+            cash = float(cash)
+            st_inv = float(st_inv)
+
+            # get total cash & equivilants
+            tot_cash_and_equiv = cash + st_inv
+            
+            ## liabilites (debt)
+            st_debt = st_debt_vals[year]
+            lt_debt = lt_debt_vals[year]
+
+            # ensure decimal data type
+            st_debt = float(st_debt)
+            lt_debt = float(lt_debt)
+
+            # get total debt
+            tot_debt = st_debt + lt_debt
+
+            # calc ratio of cash & equivilants to debt
+            cash_to_debt = tot_cash_and_equiv/tot_debt
+            results[year] = cash_to_debt
+
+        # add to final results by ticker
+        cash_to_debt_results[symbol] = results
+        return cash_to_debt_results
+        
     # compare income statement ratios of 5 companies
     # will eventually have to make more dynamic
     def compare_companies(self, symbol_1, symbol_2, symbol_3, symbol_4, symbol_5):
@@ -413,5 +537,7 @@ class DataBase:
         new_cols = [ele for ele in reversed(cols)]
 
         is_frame_final = is_frame[new_cols]
+
+        is_frame_final.to_excel("/Users/katherineohalloran/Documents/FinanceKivyApp/TestData/Income Statement Scorecard.xlsx")
 
         return is_frame_final
