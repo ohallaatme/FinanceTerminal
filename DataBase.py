@@ -13,6 +13,11 @@ class DataBase:
         self.bs_company_results = {}
         self.cf_company_results = {}
 
+        # overview results, store co results with ticker symbol
+        # so the same requests are not sent to the API multiple times
+        # k, v pair is stock ticker to data frame containing reporting date and EPS reported in 
+        # columns
+        self.eps_company_results = {}
 
         """ fields for companies selected to analyze """
         # incl 10 for now
@@ -88,8 +93,6 @@ class DataBase:
         # Refactor KPI Methods to leverage get_acct_balance to make code more DRY
         return results
 
-        
-    
     # TODO: find appropriate way to document Python code
     def get_yrly_financials(self, symbol, statement):
         # store results for a particular company, will be added to the 
@@ -442,7 +445,7 @@ class DataBase:
         # add to final results by ticker
         cash_to_debt_results[symbol] = results
         return cash_to_debt_results
-        
+
     # compare income statement ratios of 5 companies
     # will eventually have to make more dynamic
     def compare_companies(self, symbol_1, symbol_2, symbol_3, symbol_4, symbol_5):
@@ -541,3 +544,43 @@ class DataBase:
         is_frame_final.to_excel("/Users/katherineohalloran/Documents/FinanceKivyApp/TestData/Income Statement Scorecard.xlsx")
 
         return is_frame_final
+
+    """ -- Company Overview Methods -- """
+
+    def get_eps(self, symbol):
+        params = {"function":"EARNINGS",
+                    "symbol": "MSFT", 
+                    "apikey":self.api_key
+                    }
+
+        earnings_resp = requests.get(self.API_URL, params)
+        earnings_json = earnings_resp.json()
+
+        # pull annual earnings results from json response
+        ann_earnings = earnings_json["annualEarnings"]
+
+        # store col values from list of dicts for loop
+        date_ending = []
+        rpt_EPS = []
+
+        # convert data from dict into two lists for dataframe columns
+        for data in ann_earnings:
+            f_date = data["fiscalDateEnding"]
+            eps = data["reportedEPS"]
+
+            date_ending.append(f_date)
+            rpt_EPS.append(eps)
+
+        # now store column data in dictionary with column headers
+        # as the key, and column data as the value
+        eps_dict = {}
+        eps_dict["Reporting Date"] = date_ending
+        eps_dict["Reported EPS"] = rpt_EPS
+
+        # convert dict to df
+        eps_df = pd.DataFrame.from_dict(eps_dict)
+
+        self.eps_company_results[symbol] = eps_df
+
+    def calc_pe_ratio(self, symbol):
+        pass
