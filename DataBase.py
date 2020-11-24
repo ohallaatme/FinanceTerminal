@@ -562,7 +562,6 @@ class DataBase:
         ebitda = co_json["EBITDA"]
         pe_ratio = co_json["PERatio"]
 
-        # TODO: PICKUP 11.20.2020 TEST METHOD, figure out how to render dynamic summary based on user input
         return sector, industry, market_cap, ebitda, pe_ratio
 
     def get_eps(self, symbol):
