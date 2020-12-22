@@ -4,6 +4,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
+from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.filechooser import FileChooserIconView
@@ -18,6 +19,10 @@ from kivy.uix.dropdown import DropDown
 from kivy.factory import Factory
 from kivy import utils
 from kivy.uix.recycleview import RecycleView
+
+
+# parallel programming
+import threading
 
 # my mods
 from DataBase import DataBase
@@ -63,7 +68,7 @@ class FinStmtAnalysis(Screen):
     def hit_is_scorecard(self):
         # test on how to view tabular data
         # TODO: Modify to make it show the company data returned from DataBase methods
-                # pull rolling income statements for selected companies
+        # pull rolling income statements for selected companies
         for co in fin_db.symbols:
             fin_db.get_yrly_financials(co, "INCOME_STATEMENT")
 
@@ -105,8 +110,15 @@ class CoOverview(Screen):
     def hit_set_ticker(self):
         ticker_valid = fin_db.set_co_selected(self.ticker.text)
 
+        # TODO: 12.22.2020 -- INCLUDE LOGIC ON WHETHER OR NOT STATS WERE RUN
+        # CREATE SCORECARD SCREEN TO MOCK THIS DESIGN PATTERN
         if ticker_valid:
             print(fin_db.co_selected)
+
+            # run data 
+            # TODO: potentially make another button
+            co_overview_thread = threading.Thread(target=fin_db.get_co_overview)
+            co_overview_thread.start()
 
 
     def hit_key_stats(self):
@@ -222,29 +234,31 @@ class IsScorecard(Screen):
 
 
 """ ---  Company Summary Subscreens --- """
-# TODO: 11.30.2020 - will need to re render based on company entered
-# PICKUP figuring out how to store summary results and add to layouts with appropriate 
-# formatting and re-render screen
 class CoStats(Screen):
-    ticker_layout = ObjectProperty(None)
-    sector_layout = ObjectProperty(None)
-    industry_layout = ObjectProperty(None)
-    market_cap_layout = ObjectProperty(None)
-    ebita_layout = ObjectProperty(None)
-    pe_ratio_layout = ObjectProperty(None)
+    ticker = StringProperty('')
+    sector = StringProperty('')
+    industry = StringProperty('')
+    market_cap = StringProperty('')
+    ebita = StringProperty('')
+    pe_ratio = StringProperty('')
 
+    # test at adding the object property detail
     def __init__(self, *args, **kwargs):
         super(CoStats, self).__init__(*args, **kwargs)
+        self.ticker = fin_db.co_selected
+        self.sector = fin_db.co_sector[fin_db.co_selected]
+        self.industry = fin_db.co_industry[fin_db.co_selected]
+        # TODO: figure out text formatting for #s for display (commas, $ sign, etc.)
+        self.market_cap = str(fin_db.co_market_cap[fin_db.co_selected])
+        self.ebita = str(fin_db.co_ebita[fin_db.co_selected])
 
-        # test at adding the object property detail
+        self.pe_ratio = str(fin_db.co_pe_ratio[fin_db.co_selected])
 
+    def hit_back(self):
+        sm.current = "CoOverview"
 
-
-        
-
-
-
-
+    def hit_return_menu(self):
+        sm.current = "MenuScreen"
 
 
 

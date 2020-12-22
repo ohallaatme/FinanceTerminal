@@ -189,7 +189,6 @@
                     background_color: utils.get_color_from_hex("FF5460")
                     on_release: root.hit_return_menu()
 
-# TODO - Need to make this layout better
 <CoOverview>:
     # global variables
     name: "CoOverview"
@@ -385,7 +384,7 @@
                     valign: "middle"
                     background_normal: ''
                     # pinkish red
-                    background_color: utils.get_color_from_hex("FF5460")
+                    background_color: utils.get_color_from_hex("c")
                     on_release: root.hit_save_symbols()
 
         GridLayout: 
@@ -651,5 +650,221 @@
 
 ## --- Company Overview Screens
 <CoStats>:
-    # TODO: PICKUP HERE UI WISE 11.30.2020
-    ticker_layout: ticker_layout
+    
+    name: "CoStats"
+
+    GridLayout:
+        cols: 1
+        Label:
+            text: root.ticker
+            font_size: 30
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            canvas.before:
+                Color:  
+                    # dark indigo
+                    rgba: utils.get_color_from_hex("#23273c")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        
+        GridLayout:
+            cols: 2
+            GridLayout:
+                cols: 1
+                padding: [2, 2, 1, 1]
+                Label:
+                    text: "Sector"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            # 'Arrow' (white-ish grey)
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 2, 1]
+                Label:
+                    text: root.sector
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 1]
+                Label:
+                    text: "Industry"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 2, 1]
+                Label:
+                    text: root.industry
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 1]
+                Label:
+                    text: "Market Cap"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 2, 1]
+                Label:
+                    text: root.market_cap
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 1]
+                Label:
+                    text: "EBITA"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 2, 1]
+                Label:
+                    text: root.ebita
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 1]
+                Label:
+                    text: "Price-Earnings Ratio"
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 2, 1]
+                Label:
+                    text: root.pe_ratio
+                    color: 0, 0, 0, 1
+                    font_size: 20
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 2]
+                Button:
+                    text: "Go Back"
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    font_size: 20
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_back()
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 2]
+                Button:
+                    text: "Return to Main Menu"
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    font_size: 20
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_return_menu()

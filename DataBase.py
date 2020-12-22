@@ -10,6 +10,7 @@ class DataBase:
         self.api_key = api_key
 
         self.API_URL = "https://www.alphavantage.co/query"
+
         # store company results with ticker symbol
         # so the same requests aren't sent to the API multiple times
         self.is_company_results = {}
@@ -40,7 +41,15 @@ class DataBase:
 
         # co summary - use to store key data points of co selected
         self.co_selected = None
-    
+
+        """ --- Store Company Overview Stats --- """
+        self.co_sector = {}
+        self.co_industry = {}
+        self.co_market_cap = {} 
+        self.co_ebita = {} 
+        self.co_pe_ratio = {} 
+
+
     # returns True for success and False for error so main method 
     # can send user to correct menu depending on results
     def set_co_selected(self, co_selected):
@@ -578,9 +587,9 @@ class DataBase:
         return is_frame_final
 
     """ -- Company Overview Methods -- """
-    def get_co_overview(self, symbol):
+    def get_co_overview(self):
         params = {"function": "OVERVIEW",
-                    "symbol": symbol,
+                    "symbol": self.co_selected,
                     "apikey": self.api_key
         }
 
@@ -594,7 +603,40 @@ class DataBase:
         ebitda = co_json["EBITDA"]
         pe_ratio = co_json["PERatio"]
 
-        return sector, industry, market_cap, ebitda, pe_ratio
+        # set DataBase properties to reflect results
+        self.co_sector[self.co_selected] = sector
+        self.co_industry[self.co_selected] = industry 
+        self.co_market_cap[self.co_selected] = market_cap
+        self.co_ebita[self.co_selected] = ebitda
+        self.co_pe_ratio[self.co_selected] = pe_ratio
+
+        # debugging
+        print("COMPLETE: ")
+        
+        print("-"*100)
+        print("SECTOR: ")
+        print(self.co_sector[self.co_selected])
+
+        print("-"*100)
+        print("INDUSTRY: ")
+        print(self.co_industry[self.co_selected])
+
+        print("-"*100)
+        print("MARKET CAP: ")
+        print(self.co_market_cap[self.co_selected])
+
+        print("-"*100)
+        print("EBITA: ")
+        print(self.co_ebita[self.co_selected])
+
+        print("-"*100)
+        print("PE RATIO: ")
+        print(self.co_pe_ratio[self.co_selected])
+
+        success = notif_window("Stats successfully run for: " + self.co_selected + 
+                                " select any of the menu options to view company information", 
+                                "Company Overview Stats Complete!")
+        success.open()
 
     def get_eps(self, symbol):
         params = {"function":"EARNINGS",
@@ -631,5 +673,3 @@ class DataBase:
 
         self.eps_company_results[symbol] = eps_df
 
-    def calc_pe_ratio(self, symbol):
-        pass
