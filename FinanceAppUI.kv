@@ -54,7 +54,7 @@
                     valign: "middle"
                     background_normal: ''
                     background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_sub_menu_two()
+                    on_release: root.hit_co_overview()
 
             GridLayout:
                 cols: 1
@@ -189,108 +189,139 @@
                     background_color: utils.get_color_from_hex("FF5460")
                     on_release: root.hit_return_menu()
 
+# TODO - Need to make this layout better
 <CoOverview>:
-    GridLayout:
-        cols: 1
-        Label:
-            text: "Company Overview"
-            font_size: 30
-            text_size: self.size
-            halign: "center"
-            valign: "middle"
-            canvas.before:
-                Color:  
-                    # dark indigo
-                    rgba: utils.get_color_from_hex("#23273c")
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
+    # global variables
+    name: "CoOverview"
+    ticker: ticker
 
+    BoxLayout:
+        orientation: "horizontal"
+        
+        BoxLayout:
+            orientation: "vertical"
+
+            Label: 
+                text: "Company Overview"
+                font_size: 20
+                text_size: self.size
+                halign: "center"
+                valign: "middle"
+                canvas.before:
+                    Color: 
+                        rgba: utils.get_color_from_hex("#23273c")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Enter the ticker (symbol) of the company you would like to pull statistics for below (e.g. MSFT for Microsoft). [b]Click 'Set Ticker' to confirm.[/b]"
+                font_size: 15
+                text_size: self.size
+                markup: True
+                padding_x: 5
+                halign: "left"
+                valign: "middle"
+                canvas.before:
+                    Color: 
+                        rgba: utils.get_color_from_hex("#23273c")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            BoxLayout:
+                orientation: "vertical"
+                
+                GridLayout:
+                    cols: 1
+                    padding: [2, 2, 2, 1]
+                    TextInput:
+                        id: ticker
+                        multiline: False
+                
+                GridLayout:
+                    cols: 1
+                    padding: [2, 1, 2, 2]
+                    Button:
+                        text: "Set Ticker" 
+                        color: 0, 0, 0, 1
+                        font_size: 20
+                        text_size: self.size
+                        halign: "center"
+                        valign: "middle"
+                        background_normal: ''
+                        background_color: utils.get_color_from_hex("#41dc65")
+                        on_release: root.hit_set_ticker()
         GridLayout:
-            cols: 2
+            cols: 1
             GridLayout:
                 cols: 1
-                padding: [10, 10, 5, 5]
+                padding: [2, 2, 2, 1]
                 Button:
-                    text: "Select Companies"
+                    text: "View Key Stats"
                     color: 0, 0, 0, 1
-                    font_size: 20
                     text_size: self.size
+                    font_size: 20
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
                     background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_select_cos()
-            
-            GridLayout:
-                cols: 1
-                padding: [5, 10, 10, 5]
-                Button:
-                    text: "Income Statement Scorecard"
-                    color: 0, 0, 0, 1
-                    font_size: 20
-                    text_size: self.size
-                    halign: "center"
-                    valign: "middle"
-                    background_normal: ''
-                    background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_is_scorecard()
+                    on_release: root.hit_key_stats()
                 
             GridLayout:
                 cols: 1
-                padding: [10, 5, 5, 5]
+                padding: [2, 1, 2, 1]
                 Button:
-                    text: "Balance Sheet Scorecard"
+                    text: "View Industry Comparison"
                     color: 0, 0, 0, 1
-                    font_size: 20
                     text_size: self.size
+                    font_size: 20
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
                     background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_bs_scorecard()
+                    on_release: root.hit_industry_comparison()
 
             GridLayout:
                 cols: 1
-                padding: [5, 5, 10, 5]
+                padding: [2, 1, 2, 1]
                 Button:
-                    text: "Cash Flows Scorecard"
+                    text: "View Proc 3"
                     color: 0, 0, 0, 1
-                    font_size: 20
                     text_size: self.size
+                    font_size: 20
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
                     background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_cf_scorecard()
+                    on_release: root.hit_proc_3()
 
             GridLayout:
                 cols: 1
-                padding: [10, 5, 5, 10]
+                padding: [2, 1, 2, 1]
                 Button:
-                    text: "Sector Scorecard"
+                    text: "View Proc 4"
                     color: 0, 0, 0, 1
-                    font_size: 20
                     text_size: self.size
+                    font_size: 20
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
                     background_color: utils.get_color_from_hex("#33cccc")
-                    on_release: root.hit_sector_scorecard()
+                    on_release: root.hit_proc_4()
 
             GridLayout:
                 cols: 1
-                padding: [5, 5, 10, 10]
+                padding: [2, 1, 2, 2]
                 Button:
-                    text: "Return to Menu"
+                    text: "Return to Main Menu"
                     color: 0, 0, 0, 1
-                    font_size: 20
                     text_size: self.size
+                    font_size: 20
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
-                    # pinkish red
-                    background_color: utils.get_color_from_hex("FF5460")
+                    background_color: utils.get_color_from_hex("#33cccc")
                     on_release: root.hit_return_menu()
 
 ## --- Financial Statement Analysis SubScreens
@@ -618,3 +649,7 @@
                             id: co_10
                             multiline: False
 
+## --- Company Overview Screens
+<CoStats>:
+    # TODO: PICKUP HERE UI WISE 11.30.2020
+    ticker_layout: ticker_layout

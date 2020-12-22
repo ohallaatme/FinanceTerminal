@@ -93,10 +93,34 @@ class FinStmtAnalysis(Screen):
         sm.current = "MenuScreen"
 
 class CoOverview(Screen):
-    def hit_proc_1(self):
-        pass
+    ticker = ObjectProperty(None)
 
-    def hit_proc_2(self):
+    # define constructor to indicate whether we have instantiated a company
+    # summary as this will change depending on what ticker the user enters
+    def __init__(self, *args, **kwargs):
+        super(CoOverview, self).__init__(*args, **kwargs)
+        self.hit_co_summary = False
+
+    
+    def hit_set_ticker(self):
+        ticker_valid = fin_db.set_co_selected(self.ticker.text)
+
+        if ticker_valid:
+            print(fin_db.co_selected)
+
+
+    def hit_key_stats(self):
+        if self.hit_co_summary:
+            to_delete = sm.get_screen("CoStats")
+            # clear_widgets takes an array argument
+            sm.clear_widgets([to_delete])
+
+        sm.add_widget(CoStats(name="CoStats"))
+        sm.current = "CoStats"
+        self.hit_co_summary = True
+ 
+
+    def hit_industry_comparison(self):
         pass
 
     def hit_proc_3(self):
@@ -195,6 +219,34 @@ class IsScorecard(Screen):
         self.df = fin_db.compare_companies(fin_db.co_1, fin_db.co_2, fin_db.co_3,
                                             fin_db.co_4, fin_db.co_5)
         self.add_widget(DfguiWidget(self.df))
+
+
+""" ---  Company Summary Subscreens --- """
+# TODO: 11.30.2020 - will need to re render based on company entered
+# PICKUP figuring out how to store summary results and add to layouts with appropriate 
+# formatting and re-render screen
+class CoStats(Screen):
+    ticker_layout = ObjectProperty(None)
+    sector_layout = ObjectProperty(None)
+    industry_layout = ObjectProperty(None)
+    market_cap_layout = ObjectProperty(None)
+    ebita_layout = ObjectProperty(None)
+    pe_ratio_layout = ObjectProperty(None)
+
+    def __init__(self, *args, **kwargs):
+        super(CoStats, self).__init__(*args, **kwargs)
+
+        # test at adding the object property detail
+
+
+
+        
+
+
+
+
+
+
 
 # set up ScreenManager
 class WindowManager(ScreenManager):

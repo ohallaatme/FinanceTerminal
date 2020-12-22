@@ -2,6 +2,9 @@
 import requests
 import pandas as pd
 
+# my mods
+from MobileScreens.Popup import notif_window
+
 class DataBase:
     def __init__(self, api_key="ZW30ZWIGT28FST2M"):
         self.api_key = api_key
@@ -34,7 +37,36 @@ class DataBase:
 
         # list to store company symbols
         self.symbols = []
+
+        # co summary - use to store key data points of co selected
+        self.co_selected = None
     
+    # returns True for success and False for error so main method 
+    # can send user to correct menu depending on results
+    def set_co_selected(self, co_selected):
+        try:
+            # strip out any white space
+            user_input = co_selected.strip()
+            if user_input == "":
+                error = notif_window("Please enter a valid company ticker symbol (e.g. KO for Coca-Cola Company) before proceeding", 
+                                        "Error - Please Enter Company Ticker")
+                error.open()
+                return False
+            # TODO: handle invalid ticker that is still text in request methods
+            self.co_selected = user_input
+
+            success = notif_window("Company ticker successfully saved: " + str(self.co_selected), 
+                                    "Company Ticker Successfully Saved")
+            success.open()
+
+            return True
+        except Exception as err:
+            error = notif_window("Error processing request: " + 
+                                str(err) + " please make sure to enter a valid company ticker symbol", 
+                                "Error - Please Enter Valid Company Ticker")
+            error.open()
+            return False
+
     # method (setter) to set list of company symbols to analyze
     def set_symbols(self):
         # create list that is not set as field to loop through logic
