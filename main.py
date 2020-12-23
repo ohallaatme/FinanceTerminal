@@ -251,6 +251,11 @@ class CompanySelection(Screen):
         cos_set.open()
 
         if self.run_is:
+            # TODO: 12.23.2020 - NEED TO THREAD THE get_yrly_financials, 
+            # can use boolean field within fin_db to control when compare_cos_thread
+            # kicks off
+            # TODO: Include check if company data already exists in results
+            # prior to sending request
             for co in fin_db.symbols:
                 fin_db.get_yrly_financials(co, "INCOME_STATEMENT")
             
@@ -586,11 +591,19 @@ class IsScorecard(Screen):
         print(years)
 
         # will need to make sure these are in the right order!
-        self.year_5 = str(years[0])
-        self.year_4 = str(years[1])
-        self.year_3 = str(years[2])
-        self.year_2 = str(years[3])
-        self.year_1 = str(years[4])
+        # store numerical values seperately to use when querying out of the dictionary
+        year_5 = years[0]
+        year_4 = years[1]
+        year_3 = years[2]
+        year_2 = years[3]
+        year_1 = years[4]
+
+        # set the UI display properties, must be a String
+        self.year_5 = str(year_5)
+        self.year_4 = str(year_4)
+        self.year_3 = str(year_3)
+        self.year_2 = str(year_2)
+        self.year_1 = str(year_1)
 
         # try GP first
         # make sure to not get error from dynamic list size
@@ -623,24 +636,207 @@ class IsScorecard(Screen):
 
             # check if each year is included in the gm results, part of 
             # dynamic year end check
-            incl_yr_5 = fin_db.check_dict_keys(gm_data, years[0])
-            incl_yr_4 = fin_db.check_dict_keys(gm_data, years[1])
-            incl_yr_3 = fin_db.check_dict_keys(gm_data, years[2])
-            incl_yr_2 = fin_db.check_dict_keys(gm_data, years[3])
-            incl_yr_1 = fin_db.check_dict_keys(gm_data, years[4])
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, year_1)
 
             if incl_yr_5:
                 # TODO: format text
-                self.gm_co1_y5 = str(gm_data[years[0]])
+                self.gm_co1_y5 = str(gm_data[year_5])
             if incl_yr_4:
-                self.gm_co1_y4 = str(gm_data[years[1]])
+                self.gm_co1_y4 = str(gm_data[year_4])
             if incl_yr_3:
-                self.gm_co1_y3 = str(gm_data[years[2]])
+                self.gm_co1_y3 = str(gm_data[year_3])
             if incl_yr_2:
-                self.gm_co1_y2 = str(gm_data[years[3]])
+                self.gm_co1_y2 = str(gm_data[year_2])
             if incl_yr_1:
-                self.gm_co1_y1 = str(gm_data[years[4]])
-    
+                self.gm_co1_y1 = str(gm_data[year_1])
+
+        if len(fin_db.gp_results) >= 2:
+            # pull nested dict from json of all companies
+            co_2_gp = fin_db.gp_results[1]
+            
+            print("-"*100)
+            print("co_2_gp")
+            print(co_2_gp)
+
+            # handle co data store here so data lines up correctly in UI
+            # grab co ticker from nested dict
+            
+            co_2 = [key for key in co_2_gp]
+            self.co_2 = co_2[0]
+
+            print("-"*100)
+            print("Company 2 Ticker")
+            print(self.co_2)
+
+            # grab dict of GM data for company
+            gm_data = co_2_gp[self.co_2]
+            
+            print("-"*100)
+            print("Gross Margin Data (should be dict with years as key, # as value")
+            print(gm_data)
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.gm_co2_y5 = str(gm_data[year_5])
+            if incl_yr_4:
+                self.gm_co2_y4 = str(gm_data[year_4])
+            if incl_yr_3:
+                self.gm_co2_y3 = str(gm_data[year_3])
+            if incl_yr_2:
+                self.gm_co2_y2 = str(gm_data[year_2])
+            if incl_yr_1:
+                self.gm_co2_y1 = str(gm_data[year_1])
+        
+        # co 3 gm
+        if len(fin_db.gp_results) >= 3:
+            # pull nested dict from json of all companies
+            co_3_gp = fin_db.gp_results[2]
+            
+            print("-"*100)
+            print("co_3_gp")
+            print(co_3_gp)
+
+            # handle co data store here so data lines up correctly in UI
+            # grab co ticker from nested dict
+            
+            co_3 = [key for key in co_3_gp]
+            self.co_3 = co_3[0]
+
+            print("-"*100)
+            print("Company 3 Ticker")
+            print(self.co_3)
+
+            # grab dict of GM data for company
+            gm_data = co_3_gp[self.co_3]
+            
+            print("-"*100)
+            print("Gross Margin Data (should be dict with years as key, # as value")
+            print(gm_data)
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.gm_co3_y5 = str(gm_data[year_5])
+            if incl_yr_4:
+                self.gm_co3_y4 = str(gm_data[year_4])
+            if incl_yr_3:
+                self.gm_co3_y3 = str(gm_data[year_3])
+            if incl_yr_2:
+                self.gm_co3_y2 = str(gm_data[year_2])
+            if incl_yr_1:
+                self.gm_co3_y1 = str(gm_data[year_1])
+        
+        # co 4 gm
+        if len(fin_db.gp_results) >= 4:
+            # pull nested dict from json of all companies
+            co_4_gp = fin_db.gp_results[3]
+            
+            print("-"*100)
+            print("co_4_gp")
+            print(co_4_gp)
+
+            # handle co data store here so data lines up correctly in UI
+            # grab co ticker from nested dict
+            
+            co_4 = [key for key in co_4_gp]
+            self.co_4 = co_4[0]
+
+            print("-"*100)
+            print("Company 4 Ticker")
+            print(self.co_4)
+
+            # grab dict of GM data for company
+            gm_data = co_4_gp[self.co_4]
+            
+            print("-"*100)
+            print("Gross Margin Data (should be dict with years as key, # as value")
+            print(gm_data)
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.gm_co4_y5 = str(gm_data[year_5])
+            if incl_yr_4:
+                self.gm_co4_y4 = str(gm_data[year_4])
+            if incl_yr_3:
+                self.gm_co4_y3 = str(gm_data[year_3])
+            if incl_yr_2:
+                self.gm_co4_y2 = str(gm_data[year_2])
+            if incl_yr_1:
+                self.gm_co4_y1 = str(gm_data[year_1])
+
+        # co 5 gm
+        if len(fin_db.gp_results) >= 5:
+            # pull nested dict from json of all companies
+            co_5_gp = fin_db.gp_results[4]
+            
+            print("-"*100)
+            print("co_5_gp")
+            print(co_5_gp)
+
+            # handle co data store here so data lines up correctly in UI
+            # grab co ticker from nested dict
+            
+            co_5 = [key for key in co_5_gp]
+            self.co_5 = co_5[0]
+
+            print("-"*100)
+            print("Company 5 Ticker")
+            print(self.co_5)
+
+            # grab dict of GM data for company
+            gm_data = co_5_gp[self.co_5]
+            
+            print("-"*100)
+            print("Gross Margin Data (should be dict with years as key, # as value")
+            print(gm_data)
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.gm_co5_y5 = str(gm_data[year_5])
+            if incl_yr_4:
+                self.gm_co5_y4 = str(gm_data[year_4])
+            if incl_yr_3:
+                self.gm_co5_y3 = str(gm_data[year_3])
+            if incl_yr_2:
+                self.gm_co5_y2 = str(gm_data[year_2])
+            if incl_yr_1:
+                self.gm_co5_y1 = str(gm_data[year_1])
+
     def hit_back(self):
         sm.current = "FinStmtAnalysis"
 
