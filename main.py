@@ -224,15 +224,171 @@ class CompanySelection(Screen):
 
 """ --- Scorecard Screens ---"""
 class IsScorecard(Screen):
-    # call parent constructor so we can add dfguik widget to screen and move via ScreenManager
-    def __init__(self, **kwargs):
-        super(IsScorecard, self).__init__(**kwargs)
-        # TODO: Replace with Income Statement info
-        self.df = fin_db.compare_companies(fin_db.co_1, fin_db.co_2, fin_db.co_3,
-                                            fin_db.co_4, fin_db.co_5)
-        self.add_widget(DfguiWidget(self.df))
+    ## V2 - use labels and grid table view instead
 
+    """ ---  Companies --- """
+    co_1 = StringProperty('')
+    co_2 = StringProperty('')
+    co_3 = StringProperty('')
+    co_4 = StringProperty('')
+    co_5 = StringProperty('')
+    co_6 = StringProperty('')
+    co_7 = StringProperty('')
+    co_8 = StringProperty('')
+    co_9 = StringProperty('')
+    co_10 = StringProperty('')
+    
+    """ --- Years --- """
+    year_1 = StringProperty('')
+    year_2 = StringProperty('')
+    year_3 = StringProperty('')
+    year_4 = StringProperty('')
+    year_5 = StringProperty('')
 
+    """ --- Gross Profit --- """
+    # co 1
+    gm_co1_y1 = StringProperty('')
+    gm_co1_y2 = StringProperty('')
+    gm_co1_y3 = StringProperty('')
+    gm_co1_y4 = StringProperty('')
+    gm_co1_y5 = StringProperty('')
+
+    # co 2
+    gm_co2_y1 = StringProperty('')
+    gm_co2_y2 = StringProperty('')
+    gm_co2_y3 = StringProperty('')
+    gm_co2_y4 = StringProperty('')
+    gm_co2_y5 = StringProperty('')
+
+    # co 3
+    gm_co3_y1 = StringProperty('')
+    gm_co3_y2 = StringProperty('')
+    gm_co3_y3 = StringProperty('')
+    gm_co3_y4 = StringProperty('')
+    gm_co3_y5 = StringProperty('')
+
+    # co 4
+    gm_co4_y1 = StringProperty('')
+    gm_co4_y2 = StringProperty('')
+    gm_co4_y3 = StringProperty('')
+    gm_co4_y4 = StringProperty('')
+    gm_co4_y5 = StringProperty('')
+
+    # co 5
+    gm_co5_y1 = StringProperty('')
+    gm_co5_y2 = StringProperty('')
+    gm_co5_y3 = StringProperty('')
+    gm_co5_y4 = StringProperty('')
+    gm_co5_y5 = StringProperty('')
+
+    # co 6
+    gm_co6_y1 = StringProperty('')
+    gm_co6_y2 = StringProperty('')
+    gm_co6_y3 = StringProperty('')
+    gm_co6_y4 = StringProperty('')
+    gm_co6_y5 = StringProperty('')
+
+    # co 7
+    gm_co7_y1 = StringProperty('')
+    gm_co7_y2 = StringProperty('')
+    gm_co7_y3 = StringProperty('')
+    gm_co7_y4 = StringProperty('')
+    gm_co7_y5 = StringProperty('')
+
+    # co 8
+    gm_co8_y1 = StringProperty('')
+    gm_co8_y2 = StringProperty('')
+    gm_co8_y3 = StringProperty('')
+    gm_co8_y4 = StringProperty('')
+    gm_co8_y5 = StringProperty('')
+
+    # co 9
+    gm_co9_y1 = StringProperty('')
+    gm_co9_y2 = StringProperty('')
+    gm_co9_y3 = StringProperty('')
+    gm_co9_y4 = StringProperty('')
+    gm_co9_y5 = StringProperty('')
+
+    # co 10
+    gm_co10_y1 = StringProperty('')
+    gm_co10_y2 = StringProperty('')
+    gm_co10_y3 = StringProperty('')
+    gm_co10_y4 = StringProperty('')
+    gm_co10_y5 = StringProperty('')
+
+    """ --- SGA as % of GP --- """
+    # co 1
+    sga_gp_co1_y1 = StringProperty('')
+    sga_gp_co1_y2 = StringProperty('')
+    sga_gp_co1_y3 = StringProperty('')
+    sga_gp_co1_y4 = StringProperty('')
+    sga_gp_co1_y5 = StringProperty('')
+    
+    # co 2
+    sga_gp_co2_y1 = StringProperty('')
+    sga_gp_co2_y2 = StringProperty('')
+    sga_gp_co2_y3 = StringProperty('')
+    sga_gp_co2_y4 = StringProperty('')
+    sga_gp_co2_y5 = StringProperty('')
+
+    # co 3
+    sga_gp_co3_y1 = StringProperty('')
+    sga_gp_co3_y2 = StringProperty('')
+    sga_gp_co3_y3 = StringProperty('')
+    sga_gp_co3_y4 = StringProperty('')
+    sga_gp_co3_y5 = StringProperty('')
+    
+    # co 4
+    sga_gp_co4_y1 = StringProperty('')
+    sga_gp_co4_y2 = StringProperty('')
+    sga_gp_co4_y3 = StringProperty('')
+    sga_gp_co4_y4 = StringProperty('')
+    sga_gp_co4_y5 = StringProperty('')
+
+    # co 5
+    sga_gp_co5_y1 = StringProperty('')
+    sga_gp_co5_y2 = StringProperty('')
+    sga_gp_co5_y3 = StringProperty('')
+    sga_gp_co5_y4 = StringProperty('')
+    sga_gp_co5_y5 = StringProperty('')
+    
+    # co 6
+    sga_gp_co6_y1 = StringProperty('')
+    sga_gp_co6_y2 = StringProperty('')
+    sga_gp_co6_y3 = StringProperty('')
+    sga_gp_co6_y4 = StringProperty('')
+    sga_gp_co6_y5 = StringProperty('')
+
+    # co 7
+    sga_gp_co7_y1 = StringProperty('')
+    sga_gp_co7_y2 = StringProperty('')
+    sga_gp_co7_y3 = StringProperty('')
+    sga_gp_co7_y4 = StringProperty('')
+    sga_gp_co7_y5 = StringProperty('')
+    
+    # co 8
+    sga_gp_co8_y1 = StringProperty('')
+    sga_gp_co8_y2 = StringProperty('')
+    sga_gp_co8_y3 = StringProperty('')
+    sga_gp_co8_y4 = StringProperty('')
+    sga_gp_co8_y5 = StringProperty('')
+
+    # co 9
+    sga_gp_co9_y1 = StringProperty('')
+    sga_gp_co9_y2 = StringProperty('')
+    sga_gp_co9_y3 = StringProperty('')
+    sga_gp_co9_y4 = StringProperty('')
+    sga_gp_co9_y5 = StringProperty('')
+    
+    # co 10
+    sga_gp_co10_y1 = StringProperty('')
+    sga_gp_co10_y2 = StringProperty('')
+    sga_gp_co10_y3 = StringProperty('')
+    sga_gp_co10_y4 = StringProperty('')
+    sga_gp_co10_y5 = StringProperty('')
+
+    # TODO - 12.22.2020 - PICKUP FINISH INTEREST EXPENSE AND TAX RATE, BULD DATA BASE
+    # END AND UI
 """ ---  Company Summary Subscreens --- """
 class CoStats(Screen):
     ticker = StringProperty('')
