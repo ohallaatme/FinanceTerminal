@@ -320,7 +320,7 @@
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
-                    background_color: utils.get_color_from_hex("#33cccc")
+                    background_color: utils.get_color_from_hex("FF5460")
                     on_release: root.hit_return_menu()
 
 ## --- Financial Statement Analysis SubScreens
@@ -357,6 +357,20 @@
                     Rectangle:
                         pos: self.pos
                         size: self.size
+
+            Label:
+                text: "Enter the ticker (e.g. enter 'MSFT' for Microsoft) for up to 10 companies to analyze comparative financial statements."
+                font_size: 15
+                text_size: self.size
+                halign: "center"
+                valign: "middle"
+                canvas.before:
+                    Color:  
+                        # dark indigo
+                        rgba: utils.get_color_from_hex("#23273c")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
             GridLayout:
                 cols: 1
                 padding: [10, 10, 10, 5]
@@ -383,28 +397,13 @@
                     halign: "center"
                     valign: "middle"
                     background_normal: ''
-                    # pinkish red
-                    background_color: utils.get_color_from_hex("c")
+                    background_color: utils.get_color_from_hex("#41dc65")
                     on_release: root.hit_save_symbols()
 
         GridLayout: 
             cols: 1
             BoxLayout:
                 orientation: "vertical"
-                Label:
-                    text_size: self.size
-                    padding_x: 5
-                    halign: "center"
-                    valign: "middle"
-                    # TODO: Create Button to Search Tickers
-                    text: "Enter the Tickers of Companies to Analyze (e.g. for Apple Inc enter AAPL)"
-                    canvas.before:
-                        Color:
-                            rgba: utils.get_color_from_hex("#23273c")
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-
                 GridLayout:
                     cols: 2
                     
@@ -415,6 +414,7 @@
                             text: "Company 1: "
                             color: 0, 0, 0, 1
                             text_size: self.size
+                            font_size: 15
                             padding_x: 5
                             halign: "left"
                             valign: "middle"
@@ -431,6 +431,7 @@
                         TextInput:
                             id: co_1
                             multiline: False
+                            font_size: 15
 
 
                     GridLayout:
@@ -439,6 +440,7 @@
                         Label:
                             text: "Company 2: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -456,6 +458,7 @@
                         TextInput:
                             id: co_2
                             multiline: False
+                            font_size: 15
                             
                     GridLayout:
                         cols: 1
@@ -463,6 +466,7 @@
                         Label:
                             text: "Company 3: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -480,6 +484,7 @@
                         TextInput:
                             id: co_3
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
@@ -488,6 +493,7 @@
                             text: "Company 4: "
                             color: 0, 0, 0, 1
                             text_size: self.size
+                            font_size: 15
                             padding_x: 5
                             halign: "left"
                             valign: "middle"
@@ -504,12 +510,15 @@
                         TextInput:
                             id: co_4
                             multiline: False
+                            font_size: 15
+
                     GridLayout:
                         cols: 1
                         padding: [2, 1, 1, 1]
                         Label:
                             text: "Company 5: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -527,6 +536,7 @@
                         TextInput:
                             id: co_5
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
@@ -534,6 +544,7 @@
                         Label:
                             text: "Company 6: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -551,6 +562,7 @@
                         TextInput:
                             id: co_6
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
@@ -558,6 +570,7 @@
                         Label:
                             text: "Company 7: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -575,6 +588,7 @@
                         TextInput:
                             id: co_7
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
@@ -582,6 +596,7 @@
                         Label:
                             text: "Company 8: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -599,6 +614,7 @@
                         TextInput:
                             id: co_8
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
@@ -606,6 +622,7 @@
                         Label:
                             text: "Company 9: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -623,13 +640,15 @@
                         TextInput:
                             id: co_9
                             multiline: False
+                            font_size: 15
 
                     GridLayout:
                         cols: 1
-                        padding: [2, 1, 1, 2]
+                        padding: [2, 1, 1, 1]
                         Label:
                             text: "Company 10: "
                             color: 0, 0, 0, 1
+                            font_size: 15
                             text_size: self.size
                             padding_x: 5
                             halign: "left"
@@ -643,10 +662,99 @@
 
                     GridLayout:
                         cols: 1
-                        padding: [1, 1, 2, 2]
+                        padding: [1, 1, 2, 1]
                         TextInput:
                             id: co_10
                             multiline: False
+                            font_size: 15
+                    
+                    GridLayout:
+                        cols: 1
+                        padding: [2, 1, 1, 1]
+                        Label:
+                            text: "Run Income Statement Scorecard?"
+                            font_size: 15
+                            color: 0, 0, 0, 1
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#c8c7cd")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                    
+                    GridLayout:
+                        cols: 1
+                        padding: [1, 1, 2, 1]
+                        CheckBox:
+                            on_active: root.is_checkbox_click(self, self.active)
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#e1e0e6")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                    GridLayout:
+                        cols: 1
+                        padding: [2, 1, 1, 1]
+                        Label:
+                            text: "Run Balance Sheet Scorecard?"
+                            color: 0, 0, 0, 1
+                            font_size: 15
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#c8c7cd")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                    
+                    GridLayout:
+                        cols: 1
+                        padding: [1, 1, 2, 1]
+                        CheckBox:
+                            on_active: root.bs_checkbox_click(self, self.active)
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#e1e0e6")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                    GridLayout:
+                        cols: 1
+                        padding: [2, 1, 1, 2]
+                        Label:
+                            text: "Run Cash Flow Scorecard?"
+                            color: 0, 0, 0, 1
+                            font_size: 15
+                            text_size: self.size
+                            padding_x: 5
+                            halign: "left"
+                            valign: "middle"
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#c8c7cd")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                    
+                    GridLayout:
+                        cols: 1
+                        padding: [1, 1, 2, 2]
+                        CheckBox:
+                            on_active: root.cf_checkbox_click(self, self.active)
+                            canvas.before:
+                                Color:
+                                    rgba: utils.get_color_from_hex("#e1e0e6")
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
 
 ## --- Company Overview Screens
 <CoStats>:
@@ -869,3 +977,299 @@
                     background_color: utils.get_color_from_hex("FF5460")
                     on_release: root.hit_return_menu()
 
+<IsScorecard>:
+
+    name: "IsScorecard"
+
+    # Parent GridLayout to make sure title and other pieces are not disproportionate
+    GridLayout:
+        cols: 1
+        
+        # Title
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Income Statement Scorecard"
+                font_size: 30
+                text_size: self.size
+                halign: "center"
+                valign: "middle"
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex("#23273c")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                        
+        # first try sectioning each KPI in its own GridLayout
+        GridLayout:
+            cols: 7
+            
+            ## Header rows
+            GridLayout:
+                cols: 1
+                padding: [2, 2, 1, 1]
+                Label:
+                    text: "Company"
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 1, 1]
+                Label:
+                    text: "KPI"
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 1, 1]
+                Label:
+                    text: root.year_1
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 1, 1]
+                Label:
+                    text: root.year_2
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 1, 1]
+                Label:
+                    text: root.year_3
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 1, 1]
+                Label:
+                    text: root.year_4
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 2, 1]
+                Label:
+                    text: root.year_5
+                    color: 0, 0, 0, 1
+                    font_size: 15
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#c8c7cd")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [2, 1, 1, 1]
+                Label:
+                    text: root.co_1
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            # slightly lighter grey
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 1, 1]
+                Label:
+                    text: "Gross Profit %"
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 1, 1]
+                Label:
+                    text: root.gm_co1_y1
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 1, 1]
+                Label:
+                    text: root.gm_co1_y2
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 1, 1]
+                Label:
+                    text: root.gm_co1_y3
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 1, 1]
+                Label:
+                    text: root.gm_co1_y4
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+            GridLayout:
+                cols: 1
+                padding: [1, 1, 2, 1]
+                Label:
+                    text: root.gm_co1_y5
+                    color: 0, 0, 0, 1
+                    font_size: 12
+                    text_size: self.size
+                    halign: "center"
+                    valign: "middle"
+                    canvas.before:
+                        Color:  
+                            rgba: utils.get_color_from_hex("#e1e0e6")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+        GridLayout:
+            cols: 2
+
+            GridLayout:
+                cols: 1
+                padding: [2, 2, 1, 2]
+                Button:
+                    text: "Go Back"
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    font_size: 20
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_back()
+
+            GridLayout:
+                cols: 1
+                padding: [1, 2, 2, 2]
+                Button:
+                    text: "Return to Main Menu"
+                    color: 0, 0, 0, 1
+                    text_size: self.size
+                    font_size: 20
+                    halign: "center"
+                    valign: "middle"
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex("FF5460")
+                    on_release: root.hit_return_menu()

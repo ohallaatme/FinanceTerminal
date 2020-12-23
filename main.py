@@ -68,8 +68,7 @@ class FinStmtAnalysis(Screen):
         # test on how to view tabular data
         # TODO: Modify to make it show the company data returned from DataBase methods
         # pull rolling income statements for selected companies
-        for co in fin_db.symbols:
-            fin_db.get_yrly_financials(co, "INCOME_STATEMENT")
+
 
         # delete old scorecard if already run
         if self.is_scorecard_run:
@@ -190,8 +189,38 @@ class CompanySelection(Screen):
     co_9 = ObjectProperty(None)
     co_10 = ObjectProperty(None)
 
+    def __init__(self, *args, **kwargs):
+        super(CompanySelection, self).__init__(*args, **kwargs)
+        self.run_is = False
+        self.run_bs = False
+        self.run_cf = False
+
     def hit_back(self):
         sm.current = "FinStmtAnalysis"
+
+    def is_checkbox_click(self, instance, value):
+        if value is True:
+            self.run_is = True
+            print(self.run_is)
+        else:
+            self.run_is = False
+            print(self.run_is)
+
+    def bs_checkbox_click(self, instance, value):
+        if value is True:
+            self.run_bs = True
+            print(self.run_bs)
+        else:
+            self.run_bs = False
+            print(self.run_bs)
+
+    def cf_checkbox_click(self, instance, value):
+        if value is True:
+            self.run_cf = True
+            print(self.run_cf)
+        else:
+            self.run_cf = False
+            print(self.run_cf)
 
     def hit_save_symbols(self):
         # determine whether or not to have an info
@@ -220,6 +249,13 @@ class CompanySelection(Screen):
                                 popup_co_txt, "Company Selection Complete")
                             
         cos_set.open()
+
+        if self.run_is:
+            for co in fin_db.symbols:
+                fin_db.get_yrly_financials(co, "INCOME_STATEMENT")
+            
+            compare_cos_thread = threading.Thread(target=fin_db.compare_is_companies)
+            compare_cos_thread.start()
 
 """ --- Scorecard Screens ---"""
 class IsScorecard(Screen):
@@ -537,49 +573,79 @@ class IsScorecard(Screen):
         """ ---  Years --- """
         # Just take from co_1 for now
         # TODO: Will need to figure out how to handle mix of year ends where there are 6 years
-        first_co = fin_db.gp_results[0][self.co_1]
+        first_co = fin_db.gp_results[0][fin_db.symbols[0]]
+        
+        print("-"*100)
+        print("First Company Ticker for years results: ")
+        print(first_co)
 
         years = [key for key in first_co]
 
+        print("-"*100)
+        print("Years selected: ")
+        print(years)
+
         # will need to make sure these are in the right order!
-        self.year_5 = years[0]
-        self.year_4 = years[1]
-        self.year_3 = years[2]
-        self.year_2 = years[3]
-        self.year_1 = years[4]
+        self.year_5 = str(years[0])
+        self.year_4 = str(years[1])
+        self.year_3 = str(years[2])
+        self.year_2 = str(years[3])
+        self.year_1 = str(years[4])
 
         # try GP first
         # make sure to not get error from dynamic list size
-        if fin_db.symbols > 1:
+        print(len(fin_db.gp_results))
+
+        if len(fin_db.gp_results) >= 1:
             # pull nested dict from json of all companies
             co_1_gp = fin_db.gp_results[0]
+            
+            print("-"*100)
+            print("co_1_gp")
+            print(co_1_gp)
 
             # handle co data store here so data lines up correctly in UI
             # grab co ticker from nested dict
-            self.co_1 = [key for key in co_1_gp]
+            
+            co_1 = [key for key in co_1_gp]
+            self.co_1 = co_1[0]
+
+            print("-"*100)
+            print("Company 1 Ticker")
+            print(self.co_1)
 
             # grab dict of GM data for company
             gm_data = co_1_gp[self.co_1]
+            
+            print("-"*100)
+            print("Gross Margin Data (should be dict with years as key, # as value")
+            print(gm_data)
 
             # check if each year is included in the gm results, part of 
             # dynamic year end check
-            incl_yr_5 = fin_db.check_dict_keys(gm_data, self.year_5)
-            incl_yr_4 = fin_db.check_dict_keys(gm_data, self.year_4)
-            incl_yr_3 = fin_db.check_dict_keys(gm_data, self.year_3)
-            incl_yr_2 = fin_db.check_dict_keys(gm_data, self.year_2)
-            incl_yr_1 = fin_db.check_dict_keys(gm_data, self.year_1)
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, years[0])
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, years[1])
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, years[2])
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, years[3])
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, years[4])
 
             if incl_yr_5:
                 # TODO: format text
-                self.gm_co1_y5 = str(gm_data[self.year_5])
+                self.gm_co1_y5 = str(gm_data[years[0]])
             if incl_yr_4:
-                self.gm_co1_y4 = str(gm_data[self.year_4])
+                self.gm_co1_y4 = str(gm_data[years[1]])
             if incl_yr_3:
-                self.gm_co1_y3 = str(gm_data[self.year_3])
+                self.gm_co1_y3 = str(gm_data[years[2]])
             if incl_yr_2:
-                self.gm_co1_y2 = str(gm_data[self.year_2])
+                self.gm_co1_y2 = str(gm_data[years[3]])
             if incl_yr_1:
-                self.gm_co1_y1 = str(gm_data[self.year_1])
+                self.gm_co1_y1 = str(gm_data[years[4]])
+    
+    def hit_back(self):
+        sm.current = "FinStmtAnalysis"
+
+    def hit_return_menu(self):
+        sm.current = "MenuScreen"
 
 
 
@@ -610,6 +676,10 @@ class CoStats(Screen):
     def hit_return_menu(self):
         sm.current = "MenuScreen"
 
+    # TODO: Write Export method, leverage original company comparison that 
+    # converts data to DataFrame
+    def export_to_excel(self):
+        pass
 
 
 # set up ScreenManager

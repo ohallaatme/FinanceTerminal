@@ -135,8 +135,6 @@ class DataBase:
             # add to results dictionary
             results[yr] = val
 
-        # TODO: PICKUP 11.16.2020 
-        # Refactor KPI Methods to leverage get_acct_balance to make code more DRY
         return results
 
     # TODO: find appropriate way to document Python code
@@ -599,15 +597,37 @@ class DataBase:
         
         # gross profit %
         self.gp_results  = [self.calc_gm_perc(company) for company in self.symbols]
+        
+        print("-"*100)
+        print("GP Results")
+        print(self.gp_results)
 
         # SGA as a % of Gross Profit
         self.sga_results = [self.calc_sga_perc(company) for company in self.symbols]
-
+        
+        print("-"*100)
+        print("SGA Results")
+        print(self.sga_results)
+        
         # Interest Expense as % of Op Inc
         self.int_results = [self.calc_int_perc(company) for company in self.symbols]
 
+        print("-"*100)
+        print("Interest Expense Results")
+        print(self.int_results)
+
         # Tax Rate
         self.tax_perc_results = [self.tax_exp_perc(company) for company in self.symbols]
+
+        print("-"*100)
+        print("Tax Rate Results")
+        print(self.tax_perc_results)
+
+        success = notif_window("Income Statement Scorecard KPIs successfully ran, " + 
+                                "select 'Income Statement Scorecard' from the Financial Statement " + 
+                                "Analysis menu to view the results.", 
+                                "Income Statement Scorecard Results Ready!")
+        success.open()
 
     """ -- Company Overview Methods -- """
     def get_co_overview(self):
