@@ -864,7 +864,7 @@ class IsScorecard(Screen):
             if incl_yr_1:
                 self.sga_gp_co1_y1 = str(sga_data[year_1])
         
-        # co 2
+        # co 2 sga
         if len(fin_db.sga_results) >= 2:
             # pull nested dict from json of all companies
             co_2_sga = fin_db.sga_results[1]
@@ -893,6 +893,7 @@ class IsScorecard(Screen):
             if incl_yr_1:
                 self.sga_gp_co2_y1 = str(sga_data[year_1])
 
+        # co 3 sga
         if len(fin_db.sga_results) >= 3:
             # pull nested dict from json of all companies
             co_3_sga = fin_db.sga_results[2]
@@ -920,7 +921,7 @@ class IsScorecard(Screen):
             if incl_yr_1:
                 self.sga_gp_co3_y1 = str(sga_data[year_1])
 
-
+        # co 4 sga
         if len(fin_db.sga_results) >= 4:
             # pull nested dict from json of all companies
             co_4_sga = fin_db.sga_results[3]
@@ -948,7 +949,7 @@ class IsScorecard(Screen):
             if incl_yr_1:
                 self.sga_gp_co4_y1 = str(sga_data[year_1])
         
-        # co 5
+        # co 5 sga
         if len(fin_db.sga_results) >= 5:
             # pull nested dict from json of all companies
             co_5_sga = fin_db.sga_results[4]
@@ -975,6 +976,148 @@ class IsScorecard(Screen):
                 self.sga_gp_co5_y2 = str(sga_data[year_2])
             if incl_yr_1:
                 self.sga_gp_co5_y1 = str(sga_data[year_1])
+        
+        """ --- Interest Expense Results --- """
+        # co 1 int exp as % of op inc
+        if len(fin_db.int_results) >= 1:
+            # pull nested dict from json of all companies
+            co_1_int = fin_db.int_results[0]
+
+            # grab dict of int exp as % of op inc data for company
+            int_data = co_1_int[self.co_1]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(int_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(int_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(int_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(int_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(int_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.int_co1_y5 = str(int_data[year_5])
+            if incl_yr_4:
+                self.int_co1_y4 = str(int_data[year_4])
+            if incl_yr_3:
+                self.int_co1_y3 = str(int_data[year_3])
+            if incl_yr_2:
+                self.int_co1_y2 = str(int_data[year_2])
+            if incl_yr_1:
+                self.int_co1_y1 = str(int_data[year_1])
+
+        # co 2 int exp as % of op inc
+        if len(fin_db.int_results) >= 2:
+            # pull nested dict from json of all companies
+            co_2_int = fin_db.int_results[1]
+
+            # grab dict of int exp as % of op inc data for company
+            int_data = co_2_int[self.co_2]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(int_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(int_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(int_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(int_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(int_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.int_co2_y5 = str(int_data[year_5])
+            if incl_yr_4:
+                self.int_co2_y4 = str(int_data[year_4])
+            if incl_yr_3:
+                self.int_co2_y3 = str(int_data[year_3])
+            if incl_yr_2:
+                self.int_co2_y2 = str(int_data[year_2])
+            if incl_yr_1:
+                self.int_co2_y1 = str(int_data[year_1])
+
+        # co 3 int exp as % of op inc
+        if len(fin_db.int_results) >= 3:
+            # pull nested dict from json of all companies
+            co_3_int = fin_db.int_results[2]
+
+            # grab dict of int exp as % of op inc data for company
+            int_data = co_3_int[self.co_3]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(int_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(int_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(int_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(int_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(int_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.int_co3_y5 = str(int_data[year_5])
+            if incl_yr_4:
+                self.int_co3_y4 = str(int_data[year_4])
+            if incl_yr_3:
+                self.int_co3_y3 = str(int_data[year_3])
+            if incl_yr_2:
+                self.int_co3_y2 = str(int_data[year_2])
+            if incl_yr_1:
+                self.int_co3_y1 = str(int_data[year_1])
+
+        # co 4 int exp as % of op inc
+        if len(fin_db.int_results) >= 4:
+            # pull nested dict from json of all companies
+            co_4_int = fin_db.int_results[3]
+
+            # grab dict of int exp as % of op inc data for company
+            int_data = co_4_int[self.co_4]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(int_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(int_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(int_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(int_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(int_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.int_co4_y5 = str(int_data[year_5])
+            if incl_yr_4:
+                self.int_co4_y4 = str(int_data[year_4])
+            if incl_yr_3:
+                self.int_co4_y3 = str(int_data[year_3])
+            if incl_yr_2:
+                self.int_co4_y2 = str(int_data[year_2])
+            if incl_yr_1:
+                self.int_co4_y1 = str(int_data[year_1])
+
+        # co 5 int exp as % of op inc
+        if len(fin_db.int_results) >= 5:
+            # pull nested dict from json of all companies
+            co_5_int = fin_db.int_results[4]
+
+            # grab dict of int exp as % of op inc data for company
+            int_data = co_5_int[self.co_5]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(int_data, year_5)
+            incl_yr_4 = fin_db.check_dict_keys(int_data, year_4)
+            incl_yr_3 = fin_db.check_dict_keys(int_data, year_3)
+            incl_yr_2 = fin_db.check_dict_keys(int_data, year_2)
+            incl_yr_1 = fin_db.check_dict_keys(int_data, year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.int_co5_y5 = str(int_data[year_5])
+            if incl_yr_4:
+                self.int_co5_y4 = str(int_data[year_4])
+            if incl_yr_3:
+                self.int_co5_y3 = str(int_data[year_3])
+            if incl_yr_2:
+                self.int_co5_y2 = str(int_data[year_2])
+            if incl_yr_1:
+                self.int_co5_y1 = str(int_data[year_1])
+
 
     def hit_back(self):
         sm.current = "FinStmtAnalysis"
