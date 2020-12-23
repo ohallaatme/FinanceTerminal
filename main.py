@@ -30,8 +30,7 @@ from MobileScreens.Popup import notif_window
 
 # df gui from kivy (pulled mainy from git)
 from dfguik import DfguiWidget
-# for testing, remove eventually
-from demo import create_dummy_data
+
 
 """ -- Define Main Screens -- """
 # Menu
@@ -238,6 +237,7 @@ class IsScorecard(Screen):
     co_9 = StringProperty('')
     co_10 = StringProperty('')
     
+
     """ --- Years --- """
     year_1 = StringProperty('')
     year_2 = StringProperty('')
@@ -387,8 +387,202 @@ class IsScorecard(Screen):
     sga_gp_co10_y4 = StringProperty('')
     sga_gp_co10_y5 = StringProperty('')
 
-    # TODO - 12.22.2020 - PICKUP FINISH INTEREST EXPENSE AND TAX RATE, BULD DATA BASE
-    # END AND UI
+    """ --- Interest Expense as % of OpInc --- """
+    # co 1
+    int_co1_y1 = StringProperty('')
+    int_co1_y2 = StringProperty('')
+    int_co1_y3 = StringProperty('')
+    int_co1_y4 = StringProperty('')
+    int_co1_y5 = StringProperty('')
+
+    # co 2
+    int_co2_y1 = StringProperty('')
+    int_co2_y2 = StringProperty('')
+    int_co2_y3 = StringProperty('')
+    int_co2_y4 = StringProperty('')
+    int_co2_y5 = StringProperty('')
+
+    # co 3
+    int_co3_y1 = StringProperty('')
+    int_co3_y2 = StringProperty('')
+    int_co3_y3 = StringProperty('')
+    int_co3_y4 = StringProperty('')
+    int_co3_y5 = StringProperty('')
+
+    # co 4
+    int_co4_y1 = StringProperty('')
+    int_co4_y2 = StringProperty('')
+    int_co4_y3 = StringProperty('')
+    int_co4_y4 = StringProperty('')
+    int_co4_y5 = StringProperty('')
+
+    # co 5
+    int_co5_y1 = StringProperty('')
+    int_co5_y2 = StringProperty('')
+    int_co5_y3 = StringProperty('')
+    int_co5_y4 = StringProperty('')
+    int_co5_y5 = StringProperty('')
+
+    # co 6
+    int_co6_y1 = StringProperty('')
+    int_co6_y2 = StringProperty('')
+    int_co6_y3 = StringProperty('')
+    int_co6_y4 = StringProperty('')
+    int_co6_y5 = StringProperty('')
+
+    # co 7
+    int_co7_y1 = StringProperty('')
+    int_co7_y2 = StringProperty('')
+    int_co7_y3 = StringProperty('')
+    int_co7_y4 = StringProperty('')
+    int_co7_y5 = StringProperty('')
+
+    # co 8
+    int_co8_y1 = StringProperty('')
+    int_co8_y2 = StringProperty('')
+    int_co8_y3 = StringProperty('')
+    int_co8_y4 = StringProperty('')
+    int_co8_y5 = StringProperty('')
+
+    # co 9
+    int_co9_y1 = StringProperty('')
+    int_co9_y2 = StringProperty('')
+    int_co9_y3 = StringProperty('')
+    int_co9_y4 = StringProperty('')
+    int_co9_y5 = StringProperty('')
+
+    # co 10
+    int_co10_y1 = StringProperty('')
+    int_co10_y2 = StringProperty('')
+    int_co10_y3 = StringProperty('')
+    int_co10_y4 = StringProperty('')
+    int_co10_y5 = StringProperty('')
+
+    """ --- Tax Rate --- """
+    # co 1
+    tr_co1_y1 = StringProperty('')
+    tr_co1_y2 = StringProperty('')
+    tr_co1_y3 = StringProperty('')
+    tr_co1_y4 = StringProperty('')
+    tr_co1_y5 = StringProperty('')
+
+    # co 2
+    tr_co2_y1 = StringProperty('')
+    tr_co2_y2 = StringProperty('')
+    tr_co2_y3 = StringProperty('')
+    tr_co2_y4 = StringProperty('')
+    tr_co2_y5 = StringProperty('')
+
+    # co 3
+    tr_co3_y1 = StringProperty('')
+    tr_co3_y2 = StringProperty('')
+    tr_co3_y3 = StringProperty('')
+    tr_co3_y4 = StringProperty('')
+    tr_co3_y5 = StringProperty('')
+
+    # co 4
+    tr_co4_y1 = StringProperty('')
+    tr_co4_y2 = StringProperty('')
+    tr_co4_y3 = StringProperty('')
+    tr_co4_y4 = StringProperty('')
+    tr_co4_y5 = StringProperty('')
+
+    # co 5
+    tr_co5_y1 = StringProperty('')
+    tr_co5_y2 = StringProperty('')
+    tr_co5_y3 = StringProperty('')
+    tr_co5_y4 = StringProperty('')
+    tr_co5_y5 = StringProperty('')
+
+    # co 6
+    tr_co6_y1 = StringProperty('')
+    tr_co6_y2 = StringProperty('')
+    tr_co6_y3 = StringProperty('')
+    tr_co6_y4 = StringProperty('')
+    tr_co6_y5 = StringProperty('')
+
+    # co 7
+    tr_co7_y1 = StringProperty('')
+    tr_co7_y2 = StringProperty('')
+    tr_co7_y3 = StringProperty('')
+    tr_co7_y4 = StringProperty('')
+    tr_co7_y5 = StringProperty('')
+
+    # co 8
+    tr_co8_y1 = StringProperty('')
+    tr_co8_y2 = StringProperty('')
+    tr_co8_y3 = StringProperty('')
+    tr_co8_y4 = StringProperty('')
+    tr_co8_y5 = StringProperty('')
+
+    # co 9
+    tr_co9_y1 = StringProperty('')
+    tr_co9_y2 = StringProperty('')
+    tr_co9_y3 = StringProperty('')
+    tr_co9_y4 = StringProperty('')
+    tr_co9_y5 = StringProperty('')
+
+    # co 10
+    tr_co10_y1 = StringProperty('')
+    tr_co10_y2 = StringProperty('')
+    tr_co10_y3 = StringProperty('')
+    tr_co10_y4 = StringProperty('')
+    tr_co10_y5 = StringProperty('')
+
+    def __init__(self, *args, **kwargs):
+        super(IsScorecard, self).__init__(*args, **kwargs)
+
+        # KPIs can just be labels
+
+        """ ---  Years --- """
+        # Just take from co_1 for now
+        # TODO: Will need to figure out how to handle mix of year ends where there are 6 years
+        first_co = fin_db.gp_results[0][self.co_1]
+
+        years = [key for key in first_co]
+
+        # will need to make sure these are in the right order!
+        self.year_5 = years[0]
+        self.year_4 = years[1]
+        self.year_3 = years[2]
+        self.year_2 = years[3]
+        self.year_1 = years[4]
+
+        # try GP first
+        # make sure to not get error from dynamic list size
+        if fin_db.symbols > 1:
+            # pull nested dict from json of all companies
+            co_1_gp = fin_db.gp_results[0]
+
+            # handle co data store here so data lines up correctly in UI
+            # grab co ticker from nested dict
+            self.co_1 = [key for key in co_1_gp]
+
+            # grab dict of GM data for company
+            gm_data = co_1_gp[self.co_1]
+
+            # check if each year is included in the gm results, part of 
+            # dynamic year end check
+            incl_yr_5 = fin_db.check_dict_keys(gm_data, self.year_5)
+            incl_yr_4 = fin_db.check_dict_keys(gm_data, self.year_4)
+            incl_yr_3 = fin_db.check_dict_keys(gm_data, self.year_3)
+            incl_yr_2 = fin_db.check_dict_keys(gm_data, self.year_2)
+            incl_yr_1 = fin_db.check_dict_keys(gm_data, self.year_1)
+
+            if incl_yr_5:
+                # TODO: format text
+                self.gm_co1_y5 = str(gm_data[self.year_5])
+            if incl_yr_4:
+                self.gm_co1_y4 = str(gm_data[self.year_4])
+            if incl_yr_3:
+                self.gm_co1_y3 = str(gm_data[self.year_3])
+            if incl_yr_2:
+                self.gm_co1_y2 = str(gm_data[self.year_2])
+            if incl_yr_1:
+                self.gm_co1_y1 = str(gm_data[self.year_1])
+
+
+
 """ ---  Company Summary Subscreens --- """
 class CoStats(Screen):
     ticker = StringProperty('')

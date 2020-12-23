@@ -49,6 +49,11 @@ class DataBase:
         self.co_ebita = {} 
         self.co_pe_ratio = {} 
 
+        """ --- Store IS Stats --- """
+        self.gp_results = None
+        self.sga_results = None
+        self.int_results = None
+        self.tax_perc_results = None
 
     # returns True for success and False for error so main method 
     # can send user to correct menu depending on results
@@ -496,6 +501,7 @@ class DataBase:
         companies = [symbol_1, symbol_2, symbol_3, symbol_4, symbol_5]
 
         ## Gross Margin % Calculation
+        ## JSON with nested dict returned from all calcs
         gp_results = [self.calc_gm_perc(company) for company in companies]
 
         ## SGA Percent
@@ -586,6 +592,23 @@ class DataBase:
 
         return is_frame_final
 
+    ## V2 on compare companies for dynamic label view (vs table/df view)
+    def compare_is_companies(self):
+
+        # TODO: Make sure event kicks of setting symbols 
+        
+        # gross profit %
+        self.gp_results  = [self.calc_gm_perc(company) for company in self.symbols]
+
+        # SGA as a % of Gross Profit
+        self.sga_results = [self.calc_sga_perc(company) for company in self.symbols]
+
+        # Interest Expense as % of Op Inc
+        self.int_results = [self.calc_int_perc(company) for company in self.symbols]
+
+        # Tax Rate
+        self.tax_perc_results = [self.tax_exp_perc(company) for company in self.symbols]
+
     """ -- Company Overview Methods -- """
     def get_co_overview(self):
         params = {"function": "OVERVIEW",
@@ -673,3 +696,9 @@ class DataBase:
 
         self.eps_company_results[symbol] = eps_df
 
+    # Use to validate many of the company comparison year fields
+    def check_dict_keys(self, dictionary, key):
+        if key in dictionary.keys():
+            return True
+        else:
+            return False
